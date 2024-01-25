@@ -1,0 +1,549 @@
+{% load sw_content %}
+
+<header class="header">
+  <div class="header__top">
+    <div class="container header__container">
+      <menu class="main-menu">
+        <a class="main-menu__link" href="{% url 'index' %}">Головна</a>
+        <a class="main-menu__link" href="{%url 'shop' %}">Магазин</a>
+          <a class="main-menu__link" href="{% url 'about' %}">Про нас</a>
+          <a class="main-menu__link" href="{% url 'products' %}">Продукція</a>
+          <a class="main-menu__link" href="{% url 'partnership' %}">Партнерство</a>
+          <a class="main-menu__link" href="{%url 'contacts' %}">Контакти</a>
+      </menu>
+      <div class="menu">
+        <div class="menu__head">
+          <button class="close-menu-btn">
+            <img src="/static/source/img/close.svg" alt="close" />
+          </button>
+          <h4 class="title">Категорії товарів</h4>
+        </div>
+        <div class="menu__items">
+          {% for parent_category in parent_categories %}
+          <div class="menu__item">
+            <a class="menu__link" href="{{parent_category.get_absolute_url}}">
+              <img
+                src="/static/source/img/categories/metal-roof.png"
+                alt="menu-icon"
+              />
+              <div class="menu__link-info">
+                <span>{{parent_category.title|capfirst}}</span>
+                {% if parent_category.get_active_categories.exists %}
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_16_5183)">
+                    <path
+                      d="M7.15833 13.825L10.975 10L7.15833 6.175L8.33333 5L13.3333 10L8.33333 15L7.15833 13.825Z"
+                      fill="#505F79"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_16_5183">
+                      <rect width="20" height="20" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                {% endif %}
+              </div>
+            </a>
+            {% if parent_category.get_active_categories.exists %}
+            <div class="menu__dropdown">
+              <div class="menu__dropdown-right">
+                {% for child_category1 in parent_category.get_active_categories %}
+                <div class="menu__dropdown-right-item">
+                  <a class="menu__dropdown-right-link" href="{{child_category1.get_absolute_url}}">
+                    {{child_category1.title|capfirst}}
+
+                    {% if child_category1.get_active_categories.exists %}
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g clip-path="url(#clip0_16_5183)">
+                        <path
+                          d="M7.15833 13.825L10.975 10L7.15833 6.175L8.33333 5L13.3333 10L8.33333 15L7.15833 13.825Z"
+                          fill="#505F79"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_16_5183">
+                          <rect width="20" height="20" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    {% endif %}
+                  </a>
+
+                  {% if child_category1.get_active_categories.exists %}
+                  <div class="menu__dropdown-right-items">
+                {% for child_category2 in child_category1.get_active_categories %}
+                    <a href="{{child_category2.get_absolute_url}}">{{child_category2.title|capfirst}}</a>
+                {% endfor %}
+
+                  </div>
+                                      {% endif %}
+
+                </div>
+                {% endfor %}
+             
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="header__left">
+        <div class="burger-btn header__burger-btn">
+          <div class="burger-btn__line burger-btn__line-1"></div>
+          <div class="burger-btn__line burger-btn__line-2"></div>
+          <div class="burger-btn__line burger-btn__line-3"></div>
+        </div>
+        <a href="{% url 'index' %}">
+          <div class="header__logo">
+            <img src="/static/source/img/big-logo.png" alt="logo" />
+          </div>
+        </a>
+      </div>
+
+      <div class="header__right">
+        <div class="search header__search">
+          <button class="close-search-btn header__search-close-btn">
+            <img src="/static/source/img/arrow-left.svg" alt="arrow-left" />
+          </button>
+          <div class="select custom-select search__select select-categories">
+            <div id="city" class="custom-select__head">
+              <span class="truncate">Усі категорії</span>
+              <img src="/static/source/img/arrow-down.svg" alt="arrow-down" />
+            </div>
+            <div class="custom-select__body">
+              <ul class="custom-select__list">
+                <a href="{% url 'products' %}">
+                  <li class="custom-select__list-item truncate">
+                    Усі категорії
+                  </li>
+                </a>
+                {% for parent in parent_categories %}
+                <a href="{{parent.get_absolute_url}}">
+                  <li class="custom-select__list-item truncate">
+                    {{parent.title|capfirst}}
+                  </li>
+                </a>
+                {% endfor %}
+                <!-- <li class="custom-select__list-item truncate">Металопрофіль</li>
+                <li class="custom-select__list-item truncate">
+                  Фальцева покрівля
+                </li>
+                <li class="custom-select__list-item truncate">Металосайдинг</li>
+                <li class="custom-select__list-item truncate">
+                  Металевий штахетник
+                </li>
+                <li class="custom-select__list-item truncate">Рівний лист</li>
+                <li class="custom-select__list-item truncate">
+                  Бітумна черепиця
+                </li>
+                <li class="custom-select__list-item truncate">
+                  Водостічні системи
+                </li>
+                <li class="custom-select__list-item truncate">
+                  Сходи на горище
+                </li>
+                <li class="custom-select__list-item truncate">
+                  Мансардні вікна
+                </li>
+                <li class="custom-select__list-item truncate">
+                  Мінеральна вата
+                </li>
+                <li class="custom-select__list-item truncate">
+                  Підпокрівельні плівки
+                </li>
+                <li class="custom-select__list-item truncate">Комплектуючі</li>
+                <li class="custom-select__list-item truncate">
+                  Металопластикові конструкції
+                </li> -->
+              </ul>
+            </div>
+          </div>
+          <div class="search__input">
+            <input placeholder="Я шукаю..." />
+            <button class="search__btn">
+              <img src="/static/source/img/search.svg" alt="search" />
+            </button>
+          </div>
+
+          <div class="search-modal">
+            <div class="search-modal__items">
+              <!-- <p class="search-modal__text">Товарів не знайдено</p> -->
+            </div>
+          </div>
+        </div>
+
+        <nav class="header__nav">
+          
+          <button class="open-search-btn header__nav-btn">
+            <img src="/static/source/img/search-2.svg" />
+          </button>
+
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'cabinet' %}" class="header__profile-link header__nav-link">
+            <img src="/static/source/img/profile.svg" />
+            <span>Кабінет</span>
+          </a>
+          {% else %}
+          <button
+            class="login header__profile-link header__nav-link modal_open"
+            data-href="modal-authorization"
+          >
+            <img src="/static/source/img/profile.svg" />
+            <span>Увійти</span>
+          </button>
+          {% endif %}
+          <a
+            href="{% url 'favorites'%}"
+            class="header__favorite-link header__nav-link"
+          >
+            <span class="badge header__favorites-quantity">{{favour_count}}</span>
+            <img src="/static/source/img/heart.svg" />
+          </a>
+          <a
+            href="{% url 'basket' %}"
+            class="header__cart-link header__nav-link"
+          >
+            <span class="badge header__cart-quantity">{{count}}</span>
+            <img src="/static/source/img/cart.svg" />
+            <span class="header__cart-cost"
+              ><span>{{item_cart.price|stringformat:".1f"}}</span>
+            </span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" data-is-not-close-outside="true">
+    <div class="authorization modal__block modal-authorization">
+      <div class="modal_close">✖</div>
+
+      <form action="/api/login_user/" class="sign-in__form validation__block">
+        <div class="sign-in__form-info">
+          <h4 class="form-title sign-in__form-title">Вхід</h4>
+          <div class="authorization__form-fields sign-in__form-fields">
+            <div class="field sign-in__form-field validation_container">
+              <label for="email" class="sign-in__form-label">Email</label>
+              <input
+                id="email"
+                class="sign-in__form-input validation_input"
+                type="email"
+                data-type="email"
+                name="email"
+                placeholder="stepan@gmail.com"
+              />
+            </div>
+
+            <div class="field sign-in__form-field validation_container">
+              <label for="password" class="sign-in__form-label">Пароль</label>
+              <input
+                id="password"
+                class="sign-in__form-input validation_input"
+                type="password"
+                data-type="password"
+                name="password"
+                placeholder="stepan97!"
+              />
+            </div>
+
+            <div class="authorization__form-btns sign-in__form-btns">
+              <button
+                type="submit"
+                class="primary-btn authorization-btn sign-in__form-login-btn validation_btn"
+              >
+                Увійти
+              </button>
+              <button
+                class="secondary-btn authorization-btn sign-in__form-reg-btn"
+              >
+                Зареєструватися
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <form
+        action="/api/create_user/"
+        class="registration__form validation__block"
+      >
+        <div class="registration__form-info">
+          <h4 class="form-title registration__form-title">Реєстрація</h4>
+          <div class="authorization__form-fields registration__form-fields">
+            <div class="field registration__form-field validation_container">
+              <label for="firstName" class="registration__form-label"
+                >Ім'я</label
+              >
+              <input
+                id="name"
+                class="registration__form-input validation_input"
+                type="text"
+                data-type="name"
+                name="name"
+                placeholder="Степан"
+              />
+            </div>
+
+            <div class="field registration__form-field validation_container">
+              <label for="lastName" class="registration__form-label"
+                >Прізвище</label
+              >
+              <input
+                id="surname"
+                class="registration__form-input validation_input"
+                type="text"
+                data-type="name"
+                name="surname"
+                placeholder="Степанченко"
+              />
+            </div>
+
+            <div class="field registration__form-field validation_container">
+              <label for="email" class="registration__form-label">Email</label>
+              <input
+                id="email"
+                class="registration__form-input validation_input"
+                type="email"
+                data-type="email"
+                name="email"
+                placeholder="stepan@gmail.com"
+              />
+            </div>
+
+            <div class="field registration__form-field validation_container">
+              <label for="tel" class="registration__form-label"
+                >Телефонний номер</label
+              >
+
+              <div class="tel-block">
+                <div class="tel-block__left">
+                  <img src="/static/source/img/flag-ua.svg" alt="flag-ua" />
+                  <span>+380</span>
+                </div>
+                <input
+                  id="tel"
+                  class="registration__form-input validation_input"
+                  type="tel"
+                  data-type="phone"
+                  name="phone"
+                  placeholder="97 23 45 711"
+                />
+              </div>
+            </div>
+
+            <div class="field registration__form-field validation_container">
+              <label for="password" class="registration__form-label"
+                >Пароль</label
+              >
+              <input
+                id="password"
+                class="registration__form-input validation_input"
+                type="password"
+                data-type="password1"
+                name="password"
+                placeholder="stepan97!"
+              />
+            </div>
+
+            <div class="field registration__form-field validation_container">
+              <label for="repeatPassword" class="registration__form-label"
+                >Повторіть пароль</label
+              >
+              <input
+                id="repeatPassword"
+                class="registration__form-input validation_input"
+                type="password"
+                data-type="password2"
+                name="repeatPassword"
+                placeholder="stepan97!"
+              />
+            </div>
+
+            <div class="authorization__form-btns registration__form-btns">
+              <button
+                type="submit"
+                class="primary-btn authorization-btn registration__form-reg-btn validation_btn"
+              >
+                Зареєструватися
+              </button>
+
+              <button
+                class="secondary-btn authorization-btn registration__form-login-btn"
+              >
+                Увійти
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="overlay">
+    <div class="quickly-shop modal__block">
+      <div class="modal_close">✖</div>
+
+      <form
+        action="{% url 'order_request' %}"
+        data-item_id="{{item.id}}"
+        class="quickly-shop__form validation__block"
+      >
+        <div class="quickly-shop__form-info">
+          <h4 class="form-title quickly-shop__form-title">Швидка покупка</h4>
+          <div class="quickly-shop__form-fields">
+            <div class="field quickly-shop__form-field validation_container">
+              <label for="firstName" class="quickly-shop__form-label"
+                >Ім'я</label
+              >
+              <input
+                id="firstName"
+                class="quickly-shop__form-input validation_input"
+                type="text"
+                data-type="name"
+                name="name"
+                placeholder="Степан"
+              />
+            </div>
+
+            <div class="field quickly-shop__form-field validation_container">
+              <label for="lastName" class="quickly-shop__form-label"
+                >Прізвище</label
+              >
+              <input
+                id="lastName"
+                class="quickly-shop__form-input validation_input"
+                type="text"
+                data-type="name"
+                name="surname"
+                placeholder="Степанченко"
+              />
+            </div>
+
+            <div class="field quickly-shop__form-field validation_container">
+              <label for="email" class="quickly-shop__form-label">Email</label>
+              <input
+                id="email"
+                class="quickly-shop__form-input validation_input"
+                type="email"
+                data-type="email"
+                name="email"
+                placeholder="stepan@gmail.com"
+              />
+            </div>
+
+            <div class="field quickly-shop__form-field validation_container">
+              <label for="tel" class="quickly-shop__form-label"
+                >Телефонний номер</label
+              >
+
+              <div class="tel-block">
+                <div class="tel-block__left">
+                  <img src="/static/source/img/flag-ua.svg" alt="flag-ua" />
+                  <span>+380</span>
+                </div>
+                <input
+                  id="tel"
+                  class="quickly-shop__form-input validation_input"
+                  type="tel"
+                  data-type="phone"
+                  name="phone"
+                  placeholder="97 23 45 711"
+                />
+              </div>
+            </div>
+
+            <div class="field quickly-shop__form-field">
+              <label for="lastName" class="quickly-shop__form-label"
+                >Коментар</label
+              >
+              <textarea
+                id="comment"
+                class="quickly-shop__form-input"
+                name="comment"
+                placeholder="Я хочу замовити..."
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="primary-btn quickly-shop__form-buy-btn validation_btn"
+            >
+              Купити
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal_loading__block">
+    <img src="/static/source/img/loader2.gif" alt="" />
+  </div>
+
+  <div class="modal_accept__block">
+    <div class="modal_accept_svg">
+      <svg
+        color="green"
+        aria-hidden="true"
+        focusable="false"
+        data-prefix="fas"
+        data-icon="check"
+        role="img"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+        class="svg-inline--fa fa-check fa-w-16 fa-3x"
+      >
+        <path
+          fill="currentColor"
+          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+          class=""
+        ></path>
+      </svg>
+    </div>
+
+    <div class="modal_accept_text bold_title bold_title_2 color_green">
+      Все пройшло успішно
+    </div>
+  </div>
+
+  <div class="modal_bad__block">
+    <div class="modal_bad_svg">
+      <svg
+        color="red"
+        aria-hidden="true"
+        focusable="false"
+        data-prefix="fas"
+        data-icon="times"
+        role="img"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 352 512"
+        class="svg-inline--fa fa-times fa-w-11 fa-3x"
+      >
+        <path
+          fill="currentColor"
+          d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+          class=""
+        ></path>
+      </svg>
+    </div>
+
+    <div class="modal_bad_text bold_title bold_title_2 color_red">
+      Щось пішло не так, спробуйте пізніше!
+    </div>
+  </div>
+</header>

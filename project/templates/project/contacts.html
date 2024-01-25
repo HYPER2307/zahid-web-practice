@@ -1,0 +1,150 @@
+{% extends 'project/base.html' %}
+{% load sw_content %}
+{% block styles %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+<title>Contacts</title>
+<link rel="stylesheet" href="/static/source/pages/contacts/index.css" />
+{% endblock styles %}
+{% block content %}
+
+<body>
+
+    <section class="contacts">
+        <div class="container">
+            <div class="contacts__info">
+                <div class="contacts__info-left">
+                    <!-- <img src="/static/source/img/contacts/map.jpg" alt="map" /> -->
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d323.62789411347313!2d25.5600804!3d49.5407151!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473036c285d08829%3A0x8ee815a74b57b539!2z0JfQsNGF0ZbQtCDQlNCw0YUg0JzQtdGC0LDQu9C-0YfQtdGA0LXQv9C40YbRjyDQn9GA0L7RhNC90LDRgdGC0LjQuyDQodGF0L7QtNC4INC90LAg0JPQvtGA0LjRidC1!5e0!3m2!1suk!2sua!4v1680003438974!5m2!1suk!2sua"
+                        height="447" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <div class="contacts__info-right">
+                    <div>
+                        <div class="contacts__info-group">
+                            <div class="contacts__info-group-img">
+                                <img src="/static/source/img/contacts/mark.svg" alt="mark" />
+                            </div>
+                            <div class="contacts__info-group-right">
+                                <div class="title contacts__info-group-title">Адреса:</div>
+                                <a href="https://goo.gl/maps/WF5YK5L4g7GLSze69" class="contacts__info-group-text">вул. Обїзна 12 (Ринок Західний), Тернопіль,
+                                    Україна
+                                </a>
+                                <a href="https://goo.gl/maps/3Ad2sDYz9o4g2RQ48" class="contacts__info-group-text">вул. Обїзна 25 ( с. Великі Гаї), Тернопільська обл.</a>
+                            </div>
+                        </div>
+
+                        <div class="contacts__info-group">
+                            <div class="contacts__info-group-img">
+                                <img src="/static/source/img/contacts/tel.svg" alt="tel" />
+                            </div>
+                            <div class="contacts__info-group-right">
+                                <div class="title contacts__info-group-title">Телефон:</div>
+                                <a href="tel:+380673530586" class="contacts__info-group-text">
+                                    +380 (67) 353-05-86 Віталій
+                                </a>
+                                <a href="tel:+380673507002" class="contacts__info-group-text">
+                                    +380 (67) 350-70-02 Максим
+                                </a>
+                                <a href="tel:+380982709004" class="contacts__info-group-text">
+                                    +380 (98) 270-90-04 Віктор
+                                </a>
+                            </div>
+                        </div>
+
+                                                <div class="contacts__info-group">
+                            <div  class="contacts__info-group-img">
+                                <img style="width: 25px; height: 25px; padding: 5px;"  src="/static/source/img/contacts/mail.svg" alt="email" />
+                            </div>
+                            <div class="contacts__info-group-right">
+                                <div class="title contacts__info-group-title">Електронна пошта:</div>
+                                <a href="mailto:dahzahid@gmail.com" class="contacts__info-group-text">
+                                    dahzahid@gmail.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="contacts__info-group">
+                            <div class="contacts__info-group-img">
+                                <img src="/static/source/img/contacts/time.svg" alt="time" />
+                            </div>
+                            <div class="contacts__info-group-right">
+                                <div class="title contacts__info-group-title">
+                                    Години роботи:
+                                </div>
+                                <p class="contacts__info-group-text">
+                                    Понеділок - Пятниця: 9:00 - 18:00
+                                </p>
+                                <p class="contacts__info-group-text">Субота: 9:00 - 13:00</p>
+                                <p class="contacts__info-group-text">Неділя: Вихідний</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contacts__bottom">
+                <form action="/consultation_contact_form/" class="contacts__form validation__block">
+                    <div class="contacts__form-info">
+                        <h4 class="form-title contacts__form-title">Передзвонити вам?</h4>
+                        <p class="description contacts__form-description">
+                            Вкажіть ваш номер телефону, ім'я та email. 
+                            Ми зв'яжемося з вами найближчим часом.
+                        </p>
+
+                        <div class="contacts__form-fields">
+                            <div class="field contacts__form-field validation_container">
+                                <label for="firstName" class="contacts__form-label">Ім'я</label>
+                                <input id="firstName" class="contacts__form-input validation_input" type="text"
+                                    data-type="name" name="name" placeholder="Степан" required />
+                            </div>
+
+                            <div class="field contacts__form-field validation_container">
+                                <label for="tel" class="contacts__form-label">Телефонний номер</label>
+
+                                <div class="tel-block">
+                                    <div class="tel-block__left">
+                                        <img src="/static/source/img/flag-ua.svg" alt="flag-ua" />
+                                        <span>+380</span>
+                                    </div>
+                                    <input id="phone" class="contacts__form-input validation_input" type="phone"
+                                        data-type="phone" name="phone" placeholder="97 23 45 711" required />
+                                </div>
+                            </div>
+
+                            <div class="field contacts__form-field validation_container">
+                                <label for="email" class="contacts__form-label">Email</label>
+                                <input id="email" class="contacts__form-input validation_input" type="email"
+                                    data-type="email" name="email" placeholder="stepan@gmail.com" required />
+                            </div>
+
+                            <div class="field contacts__form-field validation_container">
+                                <label for="comment" class="contacts__form-label">Коментар</label>
+                                <textarea id="comment" class="contacts__form-textarea validation_input"
+                                    data-type="comment" name="comment" placeholder="Напишіть ваш коментар"
+                                    required></textarea>
+                            </div>
+
+                            <button type="submit" class="primary-btn contacts__form-send-btn validation_btn">
+                                Надіслати
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="contacts__bottom-img">
+                    <img src="/static/source/img/contacts/notebook.jpg" alt="notebook" />
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock content %}
+{% block scripts %}
+<script src="/static/source/pages/contacts/index.js"></script>
+{% endblock scripts %}

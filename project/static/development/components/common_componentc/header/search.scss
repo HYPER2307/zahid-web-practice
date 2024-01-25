@@ -1,0 +1,147 @@
+.search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: #505f79;
+  font-size: 14px;
+  line-height: 24px;
+  border: 1px solid #dfe1e6;
+  border-radius: 4px;
+
+  &__select {
+    max-width: 126px;
+    width: 100%;
+
+    .custom-select__head {
+      padding: 8px 12px 8px 8px;
+      border: none;
+      border-right: 1px solid #dfe1e6;
+    }
+
+    .custom-select__body {
+      width: 228px;
+    }
+  }
+
+  &__input {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 380px;
+    width: 100%;
+    input {
+      width: 100%;
+      padding: 8px 0 8px 8px;
+      line-height: 24px;
+
+      &::placeholder {
+        color: #a5adba;
+      }
+    }
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    padding: 12.5px 14px 12.5px 8px;
+    border-radius: 0;
+    background-color: #f4f5f7;
+    transition: all 0.2s;
+
+    img {
+      width: 15px;
+      height: 15px;
+    }
+
+    &:hover {
+      background-color: #dfe1e6;
+    }
+  }
+}
+
+.search-modal {
+  position: absolute;
+  top: 42px;
+  width: 100%;
+  visibility: hidden;
+  opacity: 0;
+  max-width: inherit;
+  background-color: #fff;
+  border: 1px solid #dfe1e6;
+  border-top: none;
+  border-radius: 0 4px 4px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+  z-index: 5;
+  // transform: scaleY(0) translateY(-550px);
+  transition: 0.2s;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+    // transform: scale(1) translateY(0);
+  }
+
+  &__text {
+    padding: 10px 20px;
+    color: #ff623c;
+  }
+
+  &__items {
+    max-height: 700px;
+    overflow: auto;
+  }
+
+  .product-column {
+    padding: 16px 20px 16px 20px;
+
+    &__title {
+      max-width: none;
+    }
+
+    &__center {
+      max-width: 120px;
+    }
+
+    &__price {
+      max-width: 100%;
+      margin-right: 0;
+    }
+
+    &:hover {
+      .product-column__title {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  @media (max-width: 1052px) {
+    max-width: calc(100% - 545px);
+  }
+
+  @media (max-width: 970px) {
+    .product-column {
+      &__center {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 900px) {
+    max-width: calc(100% - 393px);
+  }
+
+  @media (max-width: 720px) {
+    max-width: calc(100% - 338px);
+  }
+
+  @media (max-width: 620px) {
+    max-width: 507px;
+  }
+
+  @media (max-width: 577px) {
+    max-width: calc(100% - 2px);
+  }
+}

@@ -1,0 +1,201 @@
+{% extends 'project/base.html' %} {% load sw_content %} {% block styles %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+<title>Main</title>
+<link rel="stylesheet" href="/static/source/pages/main/index.css" />
+{% endblock styles %} {% block content %}
+<body>
+  <section class="banner">
+    <div class="container banner__container">
+      <div class="banner__info">
+        <h3 class="banner__title">
+          Компанія “Захід Дах” є одним з лідерів серед постачальників
+          покрівельних матеріалів у західному регіоні.
+        </h3>
+        <a href="{% url 'shop' %}">
+          <button class="primary-btn banner__store-btn">Магазин</button>
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="advantages">
+    <div class="container advantages__container">
+      <div class="advantages__wrapper">
+        <div class="advantages__img">
+          <img
+            src="/static/source/img/main/advantages.jpg"
+            alt="professionals"
+          />
+        </div>
+        <div class="advantages__info">
+          <h3 class="title-main advantages__title">
+            Професіонали своєї справи
+          </h3>
+          <p class="main-description advantages__decsription">
+            Завдяки багаторічному досвіду та професіоналізму наших працівників,
+            які добре знають свою справу, наша компанія стала надійним партнером
+            багатьом підприємцям та організаціям в сфері покрівлі.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    {% if new_items %}
+    <section class="novelties">
+      <div class="novelties__info">
+        <h3 class="title-main novelties__title">Новинки</h3>
+        <p class="description-main novelties__description">
+          Ви будете вражені широким асортиментом вибору матеріалів, кольорів та
+          форм на будь який смак, адже задоволення потреб клієнтів є одним із
+          базових принципів компанії «Захід дах».
+        </p>
+      </div>
+
+      <div class="main-swiper novelties__swiper">
+        <div class="swiper-wrapper main__products">
+          {% for item in new_items %}
+          <div class="swiper-slide product" data-product-id="{{item.id}}">
+            <div class="product__top">
+              <button class="product__favorite-btn">
+                <img class="heart" src="/static/source/img/heart.png" />
+              </button>
+              <a href="{{item.get_absolute_url}}">
+                <img
+                  class="product__img"
+                  src="{{item.image.url}}"
+                  alt="product"
+                />
+              </a>
+            </div>
+            <div class="product__bottom">
+              <div class="product__info">
+                <a href="{{ item.get_absolute_url }}">
+                  <h4 class="title product__title">{{item.title}}</h4>
+                </a>
+                <div class="product__price">
+                  {% if item.price and item.price != item.get_discount_price %}
+                  <span class="product__price-current"
+                    >{{item.get_discount_price}} ГРН</span
+                  >
+                  <span class="product__price-old">{{item.price}}ГРН/шт.</span>
+                  {% else %}
+                  <span class="product__price-current">{{item.price}} ГРН</span>
+                  {% endif %}
+                </div>
+                <div class="product__accessibility truncate">
+                  {% if item.in_stock.availability is True %}
+                  <div class="product__availability">В наявності</div>
+                  {% else %}
+                  <div class="product__availability--missing">
+                    Немає в наявності
+                  </div>
+                  {% endif %}
+
+                  <!-- <span class="product__availability--missing">
+                        Відсутній
+                      </span>
+                      <span class="product__availability--is-delivered">
+                        В дорозі
+                      </span> -->
+                  <span class="product__type-trade">Оптом і в роздріб</span>
+                </div>
+              </div>
+              <button
+                class="primary-btn product__buy-btn modal_open"
+                data-href="quickly-shop"
+              >
+                Купити в 1 клік
+              </button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="swiper__scrollbar novelties__swiper-scrollbar"></div>
+      <button class="swiper__next-btn novelties__swiper-next-btn">
+        <img src="/static/source/img/chevron.svg" />
+      </button>
+    </section>
+    {% endif %} {% if main_stock_items%}
+    <section class="shares">
+      <div class="shares__info">
+        <h3 class="title-main shares__title">Акції</h3>
+      </div>
+
+      <div class="main-swiper shares__swiper">
+        <div class="swiper-wrapper main__products">
+          {% for item in main_stock_items %}
+          <div class="swiper-slide product" data-product-id="{{item.id}}">
+            <div class="product__top">
+              <button class="product__favorite-btn">
+                <img class="heart" src="/static/source/img/heart.png" />
+              </button>
+              <a href="{{ item.get_absolute_url }}">
+                <img
+                  class="product__img"
+                  src="{{item.image.url}}"
+                />
+              </a>
+            </div>
+            <div class="product__bottom">
+              <div class="product__info">
+                <a href="{{ item.get_absolute_url }}">
+                  <h4 class="title product__title">{{item.title}}</h4>
+                </a>
+                <div class="product__price">
+                  {% if item.price and item.price != item.get_discount_price %}
+                  <span class="product__price-current"
+                    >{{item.get_discount_price}} ГРН</span
+                  >
+                  <span class="product__price-old">{{item.price}}ГРН/шт.</span>
+                  {% else %}
+                  <span class="product__price-current">{{item.price}} ГРН</span>
+                  {% endif %}
+                </div>
+                <div class="product__accessibility truncate">
+                  {% if item.in_stock.availability is True %}
+                  <div class="product__availability">В наявності</div>
+                  {% else %}
+                  <div class="product__availability--missing">
+                    Немає в наявності
+                  </div>
+                  {% endif %}
+
+                  <!-- <span class="product__availability--missing">
+                        Відсутній
+                      </span>
+                      <span class="product__availability--is-delivered">
+                        В дорозі
+                      </span> -->
+                  <span class="product__type-trade">Оптом і в роздріб</span>
+                </div>
+              </div>
+              <button
+                class="primary-btn product__buy-btn modal_open"
+                data-href="quickly-shop"
+              >
+                Купити в 1 клік
+              </button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="swiper__scrollbar shares__swiper-scrollbar"></div>
+      <button class="swiper__next-btn shares__swiper-next-btn">
+        <img src="/static/source/img/chevron.svg" />
+      </button>
+    </section>
+    {% endif %}
+  </div>
+</body>
+{% endblock content %} {% block scripts %}
+<script src="/static/source/pages/main/index.js"></script>
+{% endblock scripts %}

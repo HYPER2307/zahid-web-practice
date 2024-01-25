@@ -1,0 +1,42 @@
+.bread-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px 0 8px;
+
+  a {
+    display: flex;
+    align-items: center;
+    color: #97a0af;
+    font-size: 14px;
+    line-height: 24px;
+
+    &:last-child {
+      color: #091e42;
+    }
+
+    img {
+      margin-right: 4px;
+    }
+  }
+
+  .slash::before {
+    content: "/";
+    margin: 0 5px;
+    color: #97a0af;
+  }
+
+  @media (max-width: 720px) {
+    a {
+      display: none;
+
+      &:first-child,
+      &:last-child {
+        display: block;
+      }
+    }
+
+    .slash::before {
+      content: "/ ... /";
+    }
+  }
+}

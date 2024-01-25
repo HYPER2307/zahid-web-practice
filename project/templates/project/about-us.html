@@ -1,0 +1,214 @@
+{% extends 'project/base.html' %}
+{% load sw_content %}
+{% block styles %}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>About Us</title>
+    <link rel="stylesheet" href="/static/source/pages/about-us/index.css" />
+{% endblock styles %}
+{% block content %}
+  <body>
+    <div class="container">
+      <section class="banner">
+        <div class="banner__info">
+          <h3 class="banner__title">
+            Компанія “Захід Дах” є однією з лідерів серед постачальників
+            покрівельних матеріалів у західному регіоні.
+          </h3>
+          <div class="description banner__description">
+            <p>
+              Завдяки багаторічному досвіду та високому професіоналізму
+              працівників, наша компанія стала надійним партнером для багатьох
+              підприємців та організацій у сфері покрівлі.
+            </p>
+            <p>
+              Завітавши до нас, ви будете вражені широким асортиментом вибору
+              матеріалів, кольорів та форм, і неодмінно знайдете те, що
+              підходить саме вам, адже задоволення потреб клієнтів є одним із
+              базових принципів компанії «Захід дах».
+            </p>
+          </div>
+        </div>
+        <div class="banner__img">
+          <img src="/static/source/img/about-us/banner-img.png" alt="banner-img">
+        </div>
+      </section>
+
+      <section class="advantages">
+        <div class="advantages__left">
+          <div class="advantages__info">
+            <p class="advantages__subtitle">Наші переваги</p>
+            <h3 class="advantages__title">
+              Перегляньте наші пропозиції та <span>переваги</span>
+            </h3>
+          </div>
+          <div class="advantages__item advantages__left-item">
+            <img
+              class="advantages__item-img"
+              src="/static/source/img/about-us/settings.svg"
+            />
+            <p class="advantages__item-text">
+              Технологічність - ми використовуємо програму “комп’ютерного
+              розкрою даху”, яка суттєво полегшує роботу монтажним бригадам під
+              час встановлення покрівлі. Також компанія оснащена станком
+              “Листогиб”, завдяки якому ми мобільно на місці маємо змогу зробити
+              комплектуючі планки та деталі.
+            </p>
+          </div>
+        </div>
+        <div class="advantages__right">
+          <div class="advantages__item">
+            <img
+              class="advantages__item-img"
+              src="/static/source/img/about-us/invert-colors.svg"
+            />
+            <p class="advantages__item-text">
+              Широкий асортимент вибору матеріалів, кольорів та форм.
+            </p>
+          </div>
+
+          <div class="advantages__item">
+            <img
+              class="advantages__item-img"
+              src="/static/source/img/about-us/timelapse.svg"
+            />
+            <p class="advantages__item-text">
+              Швидкі терміни виконання замовлень.
+            </p>
+          </div>
+
+          <div class="advantages__item">
+            <img
+              class="advantages__item-img"
+              src="/static/source/img/about-us/car-repair.svg"
+            />
+            <p class="advantages__item-text">
+              Стабільна та якісна логістика - компанія має власний автопарк, за
+              допомогою якого забезпечується регулярна логістика з клієнтами по
+              всіх районах.
+            </p>
+          </div>
+
+          <div class="advantages__item">
+            <img
+              class="advantages__item-img"
+              src="/static/source/img/about-us/signal-cellular-alt.svg"
+            />
+            <p class="advantages__item-text">
+              Проєвропейський напрямок - ми вивчаємо досвід провідних
+              європейських компаній та успішно впроваджуємо його на нашому
+              підприємстві.
+            </p>
+          </div>
+
+          <div class="advantages__item">
+            <img
+              class="advantages__item-img"
+              src="/static/source/img/about-us/supervised-user-circle.svg"
+            />
+            <p class="advantages__item-text">
+              Професійне обслуговування : консультація, заміри, проект - все
+              відбувається на професійному рівні висококваліфікованими
+              працівниками.
+            </p>
+          </div>
+
+          <div class="advantages__item">
+            <img
+              class="advantages__item-img"
+              src="/static/source/img/about-us/verified-user.svg"
+            />
+            <p class="advantages__item-text">
+              Гарантія якості - <br />на всю нашу продукцію надаються гарантійні
+              листи та сертифікати якості.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+     <section class="partners">
+      <div class="partners__container">
+        <div class="title partners__info">
+          <h3 class="partners__title">
+            Основними нашими партнерами з постачання продукції є такі
+            підприємства як: ТОВ “БУДСЕРВІС” Івано-Франківськ , Фабрика вікон
+            “EPSILON” та “REHAU”, “Bukwood”.
+          </h3>
+          <p class="description partners__description">
+            Окрім покрівельних матеріалів, компанія займається реалізацією
+            металевого сайдингу, фасадних панелей, металопластикової продукції,
+            мінеральної вати та сходів на горище.
+          </p>
+        </div>
+        <div class="partners__items">
+          <div class="partners__item">
+            <img
+              src="/static/source/img/about-us/bud-service.png"
+              alt="bud-service"
+            />
+          </div>
+
+          <hr />
+
+          <div class="partners__item">
+            <img src="/static/source/img/about-us/epsilon.png" alt="epsilon" />
+          </div>
+
+          <hr />
+
+          <div class="partners__item">
+            <img src="/static/source/img/about-us/rehau.png" alt="rehau" />
+          </div>
+
+          <hr />
+
+          <div class="partners__item">
+            <img src="/static/source/img/about-us/bukwood.png" alt="bukwood" />
+          </div>
+        </div>
+      </div>
+    </section> 
+
+     <section class="additionally-info">
+      <div class="additionally-info__left">
+        <h3 class="additionally-info__title">
+          Kомпанія може порекомендувати монтажні бригади, які є партнерами по
+          співпраці
+        </h3>
+        <div class="description additionally-info__description">
+          <p>
+            За бажанням клієнта, компанія може порекомендувати монтажні бригади,
+            які є партнерами по співпраці та проявили себе як хороші спеціалісти
+            у таких населених пунктах як: Теребовля, Чортків, Борщів, Гусятин,
+            Городок, Чемерівці, Копичинці, Хоростків, Збараж, Ланівці,
+            Кременець, Теофіполь, Ямпіль, Почаїв, Вишнівець, Смига, Дубно,
+            Зборів, Козова, Тернопіль, Шумськ, Гримайлів, Бучач, Залізці,
+            Бережани.
+          </p>
+          <p>
+            Задоволення потреб клієнтів - один із базових принципів компанії
+            «Захід дах», тому ми пропонуємо Вам лише найкраще та робимо все, аби
+            наша продукція стала окрасою та надійним захистом Вашої домівки на
+            довгі роки!
+          </p>
+        </div>
+      </div>
+      <div class="additionally-info__right">
+        <img src="/static/source/img/about-us/UKRAINE.png" alt="Ukraine" />
+      </div>
+    </section>
+
+    
+  </body>
+  {% endblock content %}
+  {% block scripts %}
+  <script src="/static/source/pages/about-us/index.js"></script>
+  {% endblock scripts %}
+

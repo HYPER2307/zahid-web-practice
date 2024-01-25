@@ -1,0 +1,32 @@
+.quickly-shop {
+  &__form {
+    &-fields {
+      max-height: calc(100vh - 120px);
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    &-field {
+      width: 100%;
+
+      input,
+      textarea {
+        width: calc(100% - 26px);
+      }
+
+      textarea {
+        min-height: 120px;
+      }
+    }
+
+    &-buy-btn {
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    width: 70%;
+    padding: 20px;
+  }
+}

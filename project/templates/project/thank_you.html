@@ -1,0 +1,35 @@
+
+
+{% extends 'project/base.html' %}
+{% block styles %}
+
+<link
+rel="stylesheet"
+href="/static/source/pages/thank_you/index.css"
+/>
+
+{% endblock styles %}
+
+
+
+{% block content %}
+
+
+
+
+  <body>
+    <section class="thank-you">
+      <div class="container thank-you__container">
+        <h2 class="thank-you__title">Дякуємо за покупку🎉</h2>
+        <p class="thank-you__text">Ваше замовлення успішно оформлене!</p>
+        <a href="{% url 'index' %}">
+          <button class="primary-btn thank-you__go-to-main-btn">
+            На головну
+          </button>
+        </a>
+      </div>
+    </section>
+      <script src="/static/source/pages/thank_you/index.js"></script>
+  </body>
+  
+  {% endblock content %}

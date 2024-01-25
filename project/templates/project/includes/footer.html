@@ -1,0 +1,75 @@
+<footer class="footer">
+    <div class="container footer__container">
+        <a href="/">
+            <div class="footer__logo">
+                <img src="/static/source/img/logo-white.png" alt="logo-white" />
+            </div>
+        </a>
+        <div class="footer__info">
+            <div class="footer__address">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d323.62789411347313!2d25.5600804!3d49.5407151!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473036c285d08829%3A0x8ee815a74b57b539!2z0JfQsNGF0ZbQtCDQlNCw0YUg0JzQtdGC0LDQu9C-0YfQtdGA0LXQv9C40YbRjyDQn9GA0L7RhNC90LDRgdGC0LjQuyDQodGF0L7QtNC4INC90LAg0JPQvtGA0LjRidC1!5e0!3m2!1suk!2sua!4v1680003438974!5m2!1suk!2sua"
+                    width="220" height="144" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+
+                <!-- <a class="footer__address-top" href="">
+                    <img src="/static/source/img/footer/map.png" alt="map" />
+                </a> -->
+                <div class="footer__address-bottom">
+                    <p class="footer__info-title">Адреса</p>
+                    <a class="footer__info-link"
+                        target="_blank"
+                        href="https://www.google.com.ua/maps/place/Zakhid+Dakh+Metalocherepytsya+Profnastyl+Skhody+Na+Horyshche/@49.5407151,25.5600804,20z/data=!4m10!1m2!2m1!1zICAgICAgICAgICAgINCy0YPQuy4g0J7QsdGX0LfQvdCwIDEyICjQoNC40L3QvtC6INCX0LDRhdGW0LTQvdC40LkpLCDQotC10YDQvdC-0L_RltC70YwsINCj0LrRgNCw0ZfQvdCwICAgICAgICAgICA!3m6!1s0x473036c285d08829:0x8ee815a74b57b539!8m2!3d49.540719!4d25.5604615!15sClnQstGD0LsuINCe0LHRl9C30L3QsCAxMiAo0KDQuNC90L7QuiDQl9Cw0YXRltC00L3QuNC5KSwg0KLQtdGA0L3QvtC_0ZbQu9GMLCDQo9C60YDQsNGX0L3QsFpWIlTQstGD0Lsg0L7QsdGX0LfQvdCwIDEyINGA0LjQvdC-0Log0LfQsNGF0ZbQtNC90LjQuSDRgtC10YDQvdC-0L_RltC70Ywg0YPQutGA0LDRl9C90LCSARRyb29maW5nX3N1cHBseV9zdG9yZeABAA!16s%2Fg%2F11c5_g7f73?hl=uk">
+                        вул. Обїзна 12 (Ринок Західний), Тернопіль, Україна
+                    </a> <br/>
+<a class="footer__info-link"
+                        target="_blank"
+                        href="https://www.google.com/maps/place/%D0%97%D0%B0%D1%85%D1%96%D0%B4-%D0%94%D0%B0%D1%85/@49.5287997,25.5768685,14z/data=!4m7!3m6!1s0x4733e7b1f5d712c3:0x9492a6472f9dc927!8m2!3d49.5287997!4d25.6118874!15sClbQstGD0LsuINCe0LHRl9C30L3QsCAyNSAoINGBLiDQktC10LvQuNC60ZYg0JPQsNGXKSwg0KLQtdGA0L3QvtC_0ZbQu9GM0YHRjNC60LAg0L7QsdC7LlpRIk_QstGD0Lsg0L7QsdGX0LfQvdCwIDI1INGBINCy0LXQu9C40LrRliDQs9Cw0Zcg0YLQtdGA0L3QvtC_0ZbQu9GM0YHRjNC60LAg0L7QsdC7kgEFc3RvcmXgAQA!16s%2Fg%2F11rgc6p_8l?coh=164777&entry=tt&shorturl=1">
+                        вул. Обїзна 25 ( с. Великі Гаї), Тернопільська обл.
+                    </a>
+
+                    
+                </div>
+            </div>
+            <div class="footer__info-center">
+                <div class="footer__contacts">
+                    <div class="footer__contacts-numbers">
+                        <p class="footer__info-title">Телефон</p>
+
+                        {% for phone in phones %}
+                        <div class="footer__contacts-block">
+                            <a class="footer__info-link" href="tel:+380673530586">
+                                {{phone.phone}}
+                            </a>
+                            <p class="footer__contacts-name">{{phone.name}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="footer__contacts-email">
+                        <p class="footer__info-title">Email</p>
+                        {% for email in emails %}
+                        <a class="footer__info-link" href="mailto:Peteletskyyvitaliy@gmail.com">
+                            {{email.name}}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="footer__links">
+                    <a class="footer__info-link" href="{% url 'index' %}">Головна</a>
+                    <a class="footer__info-link" href="{% url 'shop' %}">Магазин</a>
+                    <a class="footer__info-link" href="{% url 'about' %}">Про нас</a>
+                    <a class="footer__info-link" href="{% url 'shop' %}">Продукція</a>
+                    <a class="footer__info-link" href="{% url 'partnership' %}">Партнерство</a>
+                    <a class="footer__info-link" href="{%url 'contacts' %}">Контакти</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer__bottom">
+        <p class="footer__bottom-copyright">
+            Copyright © 2023 Західна покрівельна компанія «ЗАХІД-ДАХ»
+        </p>
+    </div>
+</footer>

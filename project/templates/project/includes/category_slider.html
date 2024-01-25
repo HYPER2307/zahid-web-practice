@@ -1,0 +1,18 @@
+<div class="header__bottom">
+    <div class="container header__container">
+      <div class="category-burger-btn header__burger-btn">
+          <div class="burger-btn__line burger-btn__line-1"></div>
+          <div class="burger-btn__line burger-btn__line-2"></div>
+          <div class="burger-btn__line burger-btn__line-3"></div>
+        </div>
+      <menu class="menu-swiper">
+        <div class="swiper-wrapper">
+          {% for parent in parent_categories %}
+          <div class="swiper-slide menu-swiper__item">
+            <a class="menu__link" href="{{parent.get_absolute_url}}">{{parent.title|capfirst}}</a>
+          </div>
+         {% endfor %}
+        </div>
+      </menu>
+    </div>
+  </div>

@@ -1,0 +1,143 @@
+.wrapper {
+  background-color: #f7f7f9;
+}
+
+.delivery__container {
+  padding: 30px 44px 100px;
+}
+
+.methods__title {
+  margin: 35px 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.banner-info {
+  background: linear-gradient(
+    90.39deg,
+    #d4f5c9 39.62%,
+    rgba(171, 171, 171, 0) 94.75%
+  );
+  padding: 16px 0;
+  text-align: center;
+  color: #333333;
+  font-size: 20px;
+  font-weight: 300;
+  border-radius: 8px;
+}
+
+.payment-methods,
+.delivery-methods {
+  line-height: 1.5;
+}
+
+.payment-methods {
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    background-image: url("../../../../source/img/delivery/bg-payment-methods.png");
+    background-position: right center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #333333;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  &__left {
+    width: 40%;
+    padding: 4%;
+
+    li {
+      margin-bottom: 10px;
+      list-style-type: disc;
+    }
+  }
+
+  &__right {
+    width: 30%;
+    padding: 4%;
+    a {
+      color: #333333;
+      font-weight: bold;
+    }
+
+    &-numbers {
+      display: flex;
+      flex-direction: column;
+      margin: 20px 0;
+
+      &-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+    }
+
+    &-link {
+      &--big-font {
+        font-size: 18px;
+      }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    &__left {
+      width: 60%;
+    }
+  }
+
+  @media (max-width: 800px) {
+    &__info {
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__left {
+      width: 92%;
+    }
+
+    &__right {
+      width: 92%;
+    }
+  }
+}
+
+.delivery-methods {
+  font-size: 14px;
+  color: #333333;
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2%;
+  }
+
+  &__block-item {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    padding: 40px;
+    border-radius: 8px;
+    p {
+      margin-top: 20px;
+    }
+
+    &-details {
+      margin-top: 20px;
+      font-weight: 800;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    &__items {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    &__block-item {
+      p {
+        margin-top: 10px;
+      }
+    }
+  }
+}

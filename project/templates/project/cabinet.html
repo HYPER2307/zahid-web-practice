@@ -1,0 +1,211 @@
+{% extends 'project/base.html' %} 
+{% load sw_content sw_cart %}
+{% block styles %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+<title>Cabinet</title>
+<link rel="stylesheet" href="/static/source/pages/cabinet/index.css" />
+{% endblock styles %} 
+{% block content %}
+<body>
+  <div class="container">
+    <section class="cabinet">
+      <div class="cabinet__profile">
+        <h2 class="title cabinet__title">Особистий кабінет</h2>
+        <div class="cabinet__profile-top">
+          <div class="cabinet__profile-avatar">
+            <div class="avatar" data-first_name="{{request.user.name}}" data-last_name="{{request.user.surname}}"></div>
+          </div>
+          <div class="cabinet__profile-top-buttons">
+            <button class="primary-btn cabinet__profile-edit-btn" data-text="edit">
+              <img src="/static/source/img/pencil.svg" alt="pencil" />
+              Редагувати
+            </button>
+          </div>
+        </div>
+        <div class="cabinet__profile-params">
+          <!-- <p><span>ID:</span><span>#007</span></p> -->
+          {% if request.user.phone %}
+          <p><span>Телефон:</span><span>{{request.user.phone}}</span></p>
+          {% endif %}
+          {% if request.user.email %}
+          <p><span>E-mail:</span><span>{{request.user.email}}</span></p>
+          {% endif %}
+          {% if request.user.name %}
+          <p><span>Ім'я:</span><span>{{request.user.name}}</span></p>
+          {% endif %}
+          {% if request.user.surname %}
+          <p><span>Прізвище:</span><span>{{request.user.surname}}</span></p>
+          {% endif %}
+          {% if request.user.adress %}
+          <p><span>Адреса:</span><span>{{request.user.adress}}</span></p>
+          {% endif %}
+        </div>
+
+        <form action="/api/update_user_profile/" class="cabinet__profile-form profile-form validation__block">
+          <div class="cabinet__profile-form-fields">
+            <div class="field cabinet__profile-form-field validation_container">
+              <label for="fullName" class="cabinet__profile-form-label"
+                >Імя</label
+              >
+              <input
+                id="fullName"
+                class="cabinet__profile-form-input validation_input"
+                type="text"
+                data-type="name"
+                name="name"
+                placeholder="Степан Степанченко"
+                value="{% if request.user.name %}{{request.user.name}}{% endif %}"
+              />
+            </div>
+
+            <div class="field cabinet__profile-form-field validation_container">
+              <label for="fullName" class="cabinet__profile-form-label"
+                >Фамілія</label
+              >
+              <input
+                id="fullName"
+                class="cabinet__profile-form-input validation_input"
+                type="text"
+                data-type="name"
+                name="surname"
+                placeholder="Степан Степанченко"
+                value="{% if request.user.surname %}{{request.user.surname}}{% endif %}"
+              />
+            </div>
+
+            <div class="field cabinet__profile-form-field validation_container">
+              <label for="tel" class="cabinet__profile-form-label"
+                >Телефонний номер</label
+              >
+
+              <div class="tel-block">
+                <div class="tel-block__left">
+                  <img src="/static/source/img/flag-ua.svg" alt="flag-ua" />
+                  <span>+380</span>
+                </div>
+                <input
+                  id="tel"
+                  class="cabinet__profile-form-input validation_input"
+                  type="tel"
+                  data-type="phone"
+                  name="phone"
+                  placeholder="97 23 45 711"
+                  required
+                  value="{% if request.user.phone %}{{request.user.phone}}{% endif %}"
+                />
+              </div>
+            </div>
+
+            <div class="field cabinet__profile-form-field validation_container">
+              <label for="email" class="cabinet__profile-form-label"
+                >Email</label
+              >
+              <input
+                id="email"
+                class="cabinet__profile-form-input validation_input"
+                type="email"
+                data-type="email"
+                name="email"
+                placeholder="stepan2904@gmail.com"
+                value="{% if request.user.email %}{{request.user.email}}{% endif %}"
+              />
+            </div>
+
+
+            <div class="field cabinet__profile-form-field">
+              <label for="address" class="cabinet__profile-form-label"
+                >Адреса</label
+              >
+              <input
+                id="address"
+                class="cabinet__profile-form-input"
+                type="text"
+                data-type="comment"
+                name="adress"
+                placeholder="вулиця 15-го Квітня, 27/39, 46000"
+                value="{% if request.user.adress %}{{request.user.adress}}{% endif %}"
+              />
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="primary-btn cabinet__profile-form-save-btn validation_btn"
+          >
+            Зберегти
+          </button>
+
+
+        </form>
+
+
+                  <a
+            class="secondary-btn cabinet__profile-form-exit-btn"
+            href="/logout_view/"
+          >
+            Вийти
+          </a>
+
+
+      </div>
+
+      <div class="cabinet__history">
+        <h3 class="title cabinet__title">Історія покупок</h3>
+        <div class="products-column cabinet__history-purchase">
+          <div class="products-column__head">
+            <div class="products-column__head-left">
+              <p class="products-column__head-product">Товар</p>
+            </div>
+            <div class="products-column__head-center">
+              <div class="products-column__head-price">Ціна</div>
+              <div class="products-column__head-count">Кількість</div>
+            </div>
+            <div class="products-column__head-right">
+              <p class="products-column__head-paid">Всього</p>
+              <p class="products-column__head-date">Дата</p>
+            </div>
+          </div>
+          <div class="products-column__items">
+            {% for order in orders %} 
+            {% for cart_item in order.cart_items.all %}
+            <div class="product-column cabinet__history-item">
+              <div class="product-column__left">
+                <div class="product-column__img">
+                  <img src="{{cart_item.item.image_url}}" />
+                </div>
+                <h4 class="product-column__title">
+                  {{ cart_item.item.title }}
+                </h4>
+              </div>
+              <div class="product-column__center">
+                <p class="product-column__price">
+                  <span>{{cart_item.item.get_discount_price}}</span>ГРН
+                </p>
+                <p class="product-column__count">{{cart_item.quantity}}</p>
+              </div>
+              <div class="product-column__right">
+                <p class="product-column__paid">
+                  <span>{{order.total_price}}</span>ГРН</p>
+                <time class="product-column__date" datetime="21.08.2022"
+                  >{{ order.created|date:'Y.m.d'}}</time
+                >
+              </div>
+            </div>
+            {% endfor %} 
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+{% endblock content %} 
+{% block scripts %}
+<script src="/static/source/pages/cabinet/index.js"></script>
+{% endblock scripts %}

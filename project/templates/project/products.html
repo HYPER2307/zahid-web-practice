@@ -1,0 +1,292 @@
+{% extends 'project/base.html' %} {% load sw_content sw_catalog %} {% block styles %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+<title>Home</title>
+<link rel="stylesheet" href="/static/source/pages/index/index.css" />
+{% endblock styles %} {% block content %}
+<body>
+  <div class="container">
+    <div class="home">
+      <div class="menu home__sidebar">
+        <menu class="categories menu__items">
+          {% for parent_category in parent_categories %}
+          <div class="categories__item menu__item">
+            <a class="menu__link" href="{{parent_category.get_absolute_url}}">
+              {% if parent_category.image %}
+              <img src="{{parent_category.image.url}}" alt="menu-icon"/>
+              {% endif %}
+              <span class="">{{parent_category.title|capfirst}}</span>
+            </a>
+            {% if parent_category.get_active_categories.exists %}
+            <div class="menu__dropdown">
+              <div class="menu__dropdown-right">
+                {% for child_category1 in parent_category.get_active_categories %}
+                <div class="menu__dropdown-right-item">
+                  <a
+                    class="menu__dropdown-right-link"
+                    href="{{child_category1.get_absolute_url}}"
+                  >
+                    {{child_category1.title|capfirst}} {% if child_category1.get_active_categories.exists %}
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g clip-path="clip0_16_5183">
+                        <path
+                          d="M7.15833 13.825L10.975 10L7.15833 6.175L8.33333 5L13.3333 10L8.33333 15L7.15833 13.825Z"
+                          fill="#505F79"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_16_5183">
+                          <rect width="20" height="20" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    {% endif %}
+                  </a>
+
+                  {% if child_category1.get_active_categories.exists %}
+
+                  <div class="menu__dropdown-right-items">
+                    {% for child_category2 in child_category1.get_active_categories %}
+
+                    <a href="{{child_category2.get_absolute_url}}"
+                      >{{child_category2.title|capfirst}}</a
+                    >
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </menu>
+      </div>
+      <div class="home__center">
+        <section class="banners">
+          <div class="big-banners__swiper">
+            <div class="swiper-wrapper">
+              {% for big_banner in big_banners %}
+              <div class="swiper-slide banners__default banners__big">
+                <div class="banners__big-info">
+                  <p class="banners__big-brand">{{big_banner.brand}}</p>
+                  <h4 class="banners__big-title">{{big_banner.title}}</h4>
+                  <p class="banners__big-description">
+                    {{big_banner.item_description}}
+                  </p>
+                  <a href="{{big_banner.item_link}}">
+                    <button class="primary-btn banners__big-view-btn">
+                      Переглянути
+                    </button>
+                  </a>
+                </div>
+                <img
+                  class="banners__big-img"
+                  src="{{big_banner.image.url}}"
+                  alt="{{big_banner.title}}"
+                />
+              </div>
+
+              {% endfor %}
+            </div>
+
+            <button class="swiper__next-btn big-banners__next-btn">
+              <img src="/static/source/img/chevron.svg" />
+            </button>
+          </div>
+          <div class="banners__wrapper">
+            {% for banner in banners %}
+            <a href="{{banner.item_link}}">
+              <div class="banners__default banners__small">
+                <div class="banners__small-info">
+                  <h4 class="banners__small-title">{{banner.title}}</h4>
+                  <div class="banners__small-bottom">
+                    <p class="banners__small-brand">{{banner.brand}}</p>
+                    <div class="banners__small-price">
+                      <p class="banners__small-price-current">
+                        {{banner.price}} ₴/шт.
+                      </p>
+                      <p class="banners__small-price-old">
+                        {{banner.price_with_discount}} ₴/шт.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {% if banner.image %}
+                <img
+                  class="banners__small-img"
+                  src="{{banner.image.url}}"
+                  alt="{{banner.title}}"
+                />
+                {% endif %}
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </section>
+        {% if stock_items %}
+        <section class="shares products">
+          <h3 class="title products__title">Акційні пропозиції</h3>
+          <div class="products-swiper shares__swiper products__items">
+            <div class="swiper-wrapper">
+              {% for stock_item in stock_items %}
+
+              <div class="product swiper-slide" data-product-id="{{stock_item.id}}">
+                <div class="product__top">
+                  <button class="product__favorite-btn">
+                    <img class="heart" src="/static/source/img/heart.png" />
+                  </button>
+                  <a href="{{ stock_item.get_absolute_url }}">
+                    <img
+                      class="product__img"
+                      src="{{stock_item.image.url}}"
+                      alt="product"
+                    />
+                  </a>
+                </div>
+                <div class="product__bottom">
+                  <div class="product__info">
+                    <a href="{{ stock_item.get_absolute_url }}"
+                      ><h4 class="title product__title">
+                        {{stock_item.title}}
+                      </h4></a
+                    >
+                    <div class="product__price">
+                      {% if stock_item.price and stock_item.price != stock_item.get_discount_price %}
+                      <span class="product__price-current"
+                        >{{stock_item.get_discount_price}} ГРН</span
+                      >
+                      <span class="product__price-old"
+                        >{{stock_item.price}} ГРН/шт.</span
+                      >
+                      {% else %}
+                      <span class="product__price-current"
+                        >{{stock_item.price}} ГРН</span
+                      >
+                      {% endif %}
+                    </div>
+                    {% if stock_item.in_stock.availability is True %}
+                    <div class="product__availability">В наявності</div>
+                    {% else %}
+                    <div class="product__availability--missing">
+                      Немає в наявності
+                    </div>
+                    {% endif %}
+                    <!-- <span class="product__availability--missing">
+                        Відсутній
+                      </span>
+                      <span class="product__availability--is-delivered">
+                        В дорозі
+                      </span> -->
+                    <span class="product__type-trade">Оптом і в роздріб</span>
+                  </div>
+                </div>
+                <button
+                  class="primary-btn product__buy-btn modal_open"
+                  data-href="quickly-shop"
+                >
+                  Купити в 1 клік
+                </button>
+              </div>
+              {%endfor%}
+            </div>
+          </div>
+          <div class="swiper__scrollbar shares__swiper-scrollbar"></div>
+
+          <button
+            class="swiper__next-btn products-swiper__next-btn shares__next-btn"
+          >
+            <img src="/static/source/img/chevron.svg" />
+          </button>
+        </section>
+        {% endif %} {% if additional_items %}
+        <section class="more-products products">
+          <h3 class="title products__title">Більше товарів для вибору</h3>
+          <div class="products-swiper more-products__swiper products__items">
+            <div class="swiper-wrapper">
+              {% for additional_item in additional_items %}
+
+              <div class="product swiper-slide" data-product-id="{{additional_item.id}}">
+                <div class="product__top">
+                  <button class="product__favorite-btn">
+                    <img class="heart" src="/static/source/img/heart.png" />
+                  </button>
+                  <a href="{{ additional_item.get_absolute_url }}">
+                    <img
+                      class="product__img"
+                      src="{{additional_item.image.url}}"
+                      alt="product"
+                    />
+                  </a>
+                </div>
+                <div class="product__bottom">
+                  <div class="product__info">
+                    <a href="{{ additional_item.get_absolute_url }}">
+                      <h4 class="title product__title">
+                        {{additional_item.title}}
+                      </h4>
+                    </a>
+
+                    <div class="product__price">
+                      {% if additional_item.price and additional_item.price != additional_item.get_discount_price %}
+                      <span class="product__price-current"
+                        >{{additional_item.get_discount_price}} ГРН</span
+                      >
+                      <span class="product__price-old"
+                        >{{additional_item.price}}ГРН/шт.</span
+                      >
+                      {% else %}
+                      <span class="product__price-current"
+                        >{{additional_item.price}} ГРН</span
+                      >
+                      {% endif %}
+                    </div>
+                    {% if additional_item.in_stock.availability is True %}
+                    <div class="product__availability">В наявності</div>
+                    {% else %}
+                    <div class="product__availability--missing">
+                      Немає в наявності
+                    </div>
+                    {% endif %}
+                    <span class="product__type-trade">Оптом і в роздріб</span>
+                  </div>
+                </div>
+                <button
+                  class="primary-btn product__buy-btn modal_open"
+                  data-href="quickly-shop"
+                >
+                  Купити в 1 клік
+                </button>
+              </div>
+              {%endfor %}
+            </div>
+          </div>
+          <div class="swiper__scrollbar more-products__swiper-scrollbar"></div>
+
+          <button
+            class="swiper__next-btn products-swiper__next-btn more-products__next-btn"
+          >
+            <img src="/static/source/img/chevron.svg" />
+          </button>
+        </section>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock content %} {% block scripts %}
+<script src="/static/source/pages/index/index.js"></script>
+{% endblock scripts %}

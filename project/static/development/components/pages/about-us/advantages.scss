@@ -1,0 +1,168 @@
+.advantages {
+  display: flex;
+  padding: 140px 0;
+
+  &__right {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 13px;
+    border-bottom: 1px solid #ebecf0;
+
+    .advantages__item:nth-child(even) {
+      border-left: none;
+    }
+  }
+
+  &__info {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 0 15px 32px;
+  }
+
+  &__subtitle {
+    color: #dc2a1c;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 600;
+  }
+
+  &__title {
+    margin-top: 4px;
+    color: #000000;
+    font-size: 28px;
+    line-height: 40px;
+    font-weight: 800;
+
+    span {
+      color: #dc2a1c;
+    }
+  }
+
+  &__item {
+    max-width: 387px;
+    width: 100%;
+    padding: 16.5px 32px;
+    border: 1px solid #ebecf0;
+    border-bottom: none;
+
+    &-img {
+      margin-bottom: 8px;
+    }
+
+    &-text {
+      color: #2f2f2f;
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &-item {
+      max-width: 359px;
+      padding: 40px 46px 40px;
+      border-right: none;
+      box-shadow: 0px 4px 0 -1px rgba(0, 0, 0, 0.1),
+        0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  @media (max-width: 1450px) {
+    &__info {
+      margin: 0 0 23px 32px;
+    }
+
+    &__item {
+      max-width: calc(100% - 65px);
+    }
+
+    &__left {
+      justify-content: stretch;
+      max-width: 400px;
+
+      &-item {
+        max-width: calc(100% - 93px);
+      }
+    }
+  }
+
+  @media (max-width: 1240px) {
+    &__left {
+      &-item {
+        height: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    &__right {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    &__item {
+      border-left: 1px solid #ebecf0 !important;
+    }
+  }
+
+  @media (max-width: 820px) {
+    flex-direction: column;
+    padding: 64px 0;
+
+    &__right {
+      margin-top: 0;
+    }
+
+    &__info {
+      max-width: 238px;
+      margin: 0 0 16px;
+    }
+
+    &__item {
+      max-width: calc(100% - 48px);
+      padding: 16px 24px;
+    }
+
+    &__left {
+      max-width: none;
+      &-item {
+        max-width: calc(100% - 48px);
+        padding: 24px;
+        border-right: 1px solid #ebecf0;
+      }
+    }
+  }
+
+  @media (max-width: 550px) {
+    &__right {
+    }
+
+    &__info {
+    }
+
+    &__subtitle {
+    }
+
+    &__title {
+      font-size: 18px;
+      line-height: 24px;
+      span {
+      }
+    }
+
+    &__item {
+      &-img {
+      }
+
+      &-text {
+      }
+    }
+
+    &__left {
+      &-item {
+      }
+    }
+  }
+}

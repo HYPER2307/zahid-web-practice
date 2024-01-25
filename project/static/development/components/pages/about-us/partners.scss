@@ -1,0 +1,79 @@
+.partners {
+  &__container {
+    max-width: 1214px;
+    background-color: #f8f8f8;
+    margin: 0 auto;
+    padding: 40px 113px 53px;
+  }
+
+  &__info {
+    margin-bottom: 48px;
+  }
+
+  &__title {
+    max-width: 870px;
+    width: 100%;
+    font-family: "Montserrat";
+    color: #000000;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  &__description {
+    max-width: 847px;
+    width: 100%;
+    margin-top: 12px;
+    color: #000000;
+  }
+
+  &__items {
+    display: flex;
+    align-items: center;
+
+    hr {
+      width: 1px;
+      height: 58px;
+      background-color: #dfe1e6;
+    }
+  }
+
+  &__item {
+    img {
+    }
+  }
+
+  @media (max-width: 1200px) {
+    &__items {
+      justify-content: space-between;
+
+      hr {
+        height: 22px;
+        margin: 0 12px;
+      }
+    }
+
+    &__item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 720px) {
+    &__container {
+      padding: 40px 16px;
+    }
+
+    &__info {
+      margin-bottom: 24px;
+    }
+
+    &__description {
+      margin-top: 8px;
+    }
+  }
+}

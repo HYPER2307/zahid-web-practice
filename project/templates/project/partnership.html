@@ -1,0 +1,146 @@
+{% extends 'project/base.html' %} 
+{% load sw_content %} 
+{% block styles %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+<title>Partnership</title>
+<link rel="stylesheet" href="/static/source/pages/partnership/index.css" />
+{% endblock styles %} 
+{% block content %}
+<body>
+  <section class="partnership">
+    <div class="container">
+      <div class="partnership__info">
+        <h3 class="partnership__title">
+          Компанія “Захід Дах” на постійній основі формує дилерську мережу з
+          ціллю реалізації своєї продукції.
+        </h3>
+        <div class="description partnership__description">
+          <p>
+            Ми всебічно допомагаємо новим дилерам розпочати роботу та
+            підтримуємо вже існуючих , забезпечуємо зразками продукції ,
+            проводимо як онлайн, так і очні навчання по вивченні продукту та
+            методах реалізації, надаємо повний супровід та інформаційну
+            підтримку . З постійними партнерами за роки плідної співпраці у нас
+            склались теплі та дружні відносини.
+          </p>
+          <p>
+            Також ми з радістю розглянемо пропозиції по співпраці з монтажними
+            бригадами , які є спеціалістами у своїй справі , адже перейнявши
+            досвід один в одного ми зможемо успішно та плідно співпрацювати ,
+            вдосконалюватись і ставати ще кращими для наших клієнтів.
+          </p>
+        </div>
+      </div>
+      <div class="partnership__bottom">
+        <div class="partnership__img">
+          <img
+            src="/static/source/img/partnership/keyboard.jpg"
+            alt="keyboard"
+          />
+        </div>
+        <form
+          action="/addres_contact_form/"
+          class="partnership__form validation__block"
+        >
+          <div class="partnership__form-info">
+            <h4 class="form-title partnership__form-title">
+              Передзвонити вам?
+            </h4>
+            <p class="description partnership__form-description">
+              Вкажіть ваш номер телефону, ім'я та місто. Ми зателефонуємо
+              найближчим часом.
+            </p>
+
+            <div class="partnership__form-fields">
+              <div class="field partnership__form-field validation_container">
+                <label for="firstName" class="partnership__form-label"
+                  >Ім'я</label
+                >
+                <input
+                  id="firstName"
+                  class="partnership__form-input validation_input"
+                  type="text"
+                  data-type="name"
+                  name="name"
+                  placeholder="Степан"
+                />
+              </div>
+
+              <div class="field partnership__form-field validation_container">
+                <label for="tel" class="partnership__form-label"
+                  >Телефонний номер</label
+                >
+
+                <div class="tel-block">
+                  <div class="tel-block__left">
+                    <img src="/static/source/img/flag-ua.svg" alt="flag-ua" />
+                    <span>+380</span>
+                  </div>
+                  <input
+                    id="tel"
+                    class="partnership__form-input validation_input"
+                    type="tel"
+                    data-type="phone"
+                    name="phone"
+                    placeholder="97 23 45 711"
+                  />
+                </div>
+              </div>
+
+              <div class="field partnership__form-field validation_container">
+                <label for="addres" class="partnership__form-label"
+                  >Місто/населений пункт</label
+                >
+
+                <input
+                  id="addres"
+                  class="partnership__form-input validation_input"
+                  type="text"
+                  data-type="comment"
+                  name="addres"
+                  placeholder="Тернопіль"
+                />
+
+                <!-- <div
+                  class="select custom-select partnership__form-select select-city"
+                >
+                  <div id="city" class="custom-select__head">
+                    <span>Тернопіль</span>
+                    <img src="/static/source/img/arrow-down-big.svg" />
+                  </div>
+                  <div class="custom-select__body">
+                    <ul class="custom-select__list">
+                      <li class="custom-select__list-item">Тернопіль</li>
+                      <li class="custom-select__list-item">Київ</li>
+                      <li class="custom-select__list-item">Чернігів</li>
+                      <li class="custom-select__list-item">Житомир</li>
+                      <li class="custom-select__list-item">Одеса</li>
+                    </ul>
+                  </div>
+                </div> -->
+              </div>
+
+              <button
+                type="submit"
+                class="primary-btn partnership__form-send-btn validation_btn"
+              >
+                Надіслати
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</body>
+{% endblock content %}
+{% block scripts %}
+<script src="/static/source/pages/partnership/index.js"></script>
+{% endblock scripts %}

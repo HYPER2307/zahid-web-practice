@@ -1,0 +1,416 @@
+{% extends 'project/base.html' %} {% load sw_content sw_catalog %} {% block styles %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+<title>Production</title>
+<link rel="stylesheet" href="/static/source/pages/production/index.css" />
+{% endblock styles %}
+
+<body>
+  {% block content %} {% include "project/includes/category_slider.html" %}
+  <div class="container">
+    <div class="bread-crumbs">
+      <a href="{% url 'shop' %}">
+        <img src="/static/source/img/home.svg" alt="home" />
+        Магазин
+      </a>
+      {% for parent in category.parents %} {% if parent is not None %}
+      <a class="slash" href="{{parent.get_absolute_url}}"
+        >{{parent.title|capfirst}}</a
+      >
+      {% endif %} {% endfor %}
+    </div>
+    <section class="advenced-categories">
+      <div class="advenced-categories__items-block">
+        {% for parent in parent_categories %}
+        <a href="{{parent.get_absolute_url}}">
+          <div class="advenced-categories__item">
+            {% if parent.image %}
+            <img src="{{parent.image.url}}" alt="sadas">
+            {% endif %}
+            <h4 class="advenced-categories__item-title">{{parent.title|capfirst}}</h4>
+          </div>
+        </a>
+        {% endfor %}   
+      </div>
+    </section>
+
+    <section class="production">
+      <div class="production__info">
+        <!-- <h2 class="title production__title">Саморізи по дереву</h2> -->
+        <div class="production__info-bottom">
+          <p class="production__info-text">
+            Знайдено <span>{{items_count}}</span> товари
+          </p>
+          <div class="production__sort">
+            <div class="title production__sort-title">Сортувати</div>
+            <div class="production__sort-items">
+              <button class="production__sort-btn" data-sort-name="up">
+                дешеві
+              </button>
+              <button class="production__sort-btn" data-sort-name="down">
+                дорогі
+              </button>
+              <!-- <button class="production__sort-btn active" data-sort-name="popular">популярні</button> -->
+            </div>
+          </div>
+        </div>
+        <div class="production__mob-bottom">
+          <button
+            class="primary-btn open-filters-btn production__mob-open-filters-btn"
+          >
+            Фільтр
+            <img
+              src="/static/source/img/production/filter-list.svg"
+              alt="filter-list"
+            />
+          </button>
+          <div class="select custom-select select-sort">
+            <div id="sort" class="custom-select__head">
+              <span class="truncate">популярні</span>
+              <img src="/static/source/img/arrow-down.svg" alt="arrow-down" />
+            </div>
+            <div class="custom-select__body">
+              <ul class="custom-select__list">
+                <li class="custom-select__list-item">дешеві</li>
+                <li class="custom-select__list-item">дорогі</li>
+                <!-- <li class="custom-select__list-item">популярні</li> -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="production__content">
+        <div class="production__filters">
+          <div class="production__filters-head">
+            <button class="production__filters-head-btn close-filters-btn">
+              <img src="/static/source/img/close.svg" />
+            </button>
+            <div class="title production__filters-title">Фільтр</div>
+            <button class="simple-primary-btn production__filters-reset-btn">
+              Очистити
+            </button>
+          </div>
+
+          <div class="production__filters-body">
+            <!-- <div class="production__filters-item active" data-slug="category">
+              <div class="title production__filters-title">
+                <span>Категорія</span>
+                <img
+                  class="production__filters-arrow-icon"
+                  src="/static/source/img/arrow-down.svg"
+                />
+              </div>
+              <div class="production__filters-dropdown">
+                <div class="production__filters-items">
+                  <div
+                    class="checkbox-dropdown checkbox-dropdown__lvl-1 active"
+                  >
+                    <div class="checkbox-dropdown__head">
+                      <div class="checkbox">
+                        <input
+                          id="components"
+                          name="category"
+                          type="checkbox"
+                          value="components"
+                          checked
+                        />
+                        <label class="truncate" for="components">
+                          Комплектуючі
+                        </label>
+                      </div>
+                      <img
+                        class="production__filters-arrow-icon"
+                        src="/static/source/img/arrow-down.svg"
+                      />
+                    </div>
+                    <div class="checkbox-dropdown__body">
+                      <div
+                        class="checkbox-dropdown checkbox-dropdown__lvl-2 active"
+                      >
+                        <div class="checkbox-dropdown__head">
+                          <div class="checkbox">
+                            <input
+                              id="fasteners"
+                              name="category"
+                              type="checkbox"
+                              value="fasteners"
+                              checked
+                            />
+                            <label class="truncate" for="fasteners">
+                              Кріпильні елементи
+                            </label>
+                          </div>
+                          <img
+                            class="production__filters-arrow-icon"
+                            src="/static/source/img/arrow-down.svg"
+                          />
+                        </div>
+                        <div class="checkbox-dropdown__body">
+                          <div class="checkbox">
+                            <input
+                              id="1"
+                              name="category"
+                              type="checkbox"
+                              value="1"
+                              checked
+                            />
+                            <label class="truncate" for="1">
+                              Саморізи по дереву
+                            </label>
+                          </div>
+                          <div class="checkbox">
+                            <input id="2" name="category" type="checkbox" value="2" />
+                            <label class="truncate" for="2"> Заклепки </label>
+                          </div>
+                          <div class="checkbox">
+                            <input id="3" name="category" type="checkbox" value="3" />
+                            <label class="truncate" for="3">
+                              Саморізи по металу
+                            </label>
+                          </div>
+                          <div class="checkbox">
+                            <input id="4" name="category" type="checkbox" value="4" />
+                            <label class="truncate" for="4">
+                              Саморізи з пресшай...
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="tertiary-btn production__filters-show-more-btn">
+                  Показати більше
+                </button>
+              </div>
+            </div> -->
+
+            <div
+              class="production__filters-item production__filters-item-price"
+              data-slug="price"
+            >
+              <div class="title production__filters-title">Ціна</div>
+              <div class="production__filters-items">
+                <div class="range production__filters-range">
+                  <div
+                    class="field range-price production__filters-range-price"
+                  >
+                    <input
+                      class="min"
+                      type="number"
+                      name="min"
+                      value="{{user_min_price}}"
+                      data-min_price="{{min_price}}"
+                      data-user_min_price="{{user_min_price}}"
+                    />
+                    <div></div>
+                    <input
+                      class="max"
+                      type="number"
+                      name="max"
+                      value="{{user_max_price}}"
+                      data-max_price="{{max_price}}"
+                      data-user_max_price="{{user_max_price}}"
+                    />
+                    <!-- <button class="primary-btn production__filters-price-btn">
+                                            Ok
+                                        </button> -->
+                  </div>
+                  <div class="range-slider">
+                    <span class="range-selected"></span>
+                  </div>
+                  <div class="range-input">
+                    <input
+                      class="min"
+                      type="range"
+                      min="{{min_price}}"
+                      max="{{max_price}}"
+                      value="{{user_min_price}}"
+                      step="10"
+                    />
+                    <input
+                      class="max"
+                      type="range"
+                      min="{{min_price}}"
+                      max="{{max_price}}"
+                      value="{{user_max_price}}"
+                      step="10"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% for feature in features %} {% if feature.get_values %}
+            <div
+              class="production__filters-item"
+              data-slug="feature_id_{{feature.id}}"
+            >
+              <div class="title production__filters-title">
+                <span>{{feature.name}}</span>
+                <img
+                  class="production__filters-arrow-icon"
+                  src="/static/source/img/arrow-down.svg"
+                />
+              </div>
+              <div
+                data-type="feature_id_{{feature.id}}"
+                class="production__filters-dropdown"
+              >
+                <div class="production__filters-items">
+                  {% for feature_value in feature.get_values %}
+
+                  <div class="checkbox">
+                    <input
+                      id="{{feature_value.id}}"
+                      name="{{feature.name}}"
+                      type="checkbox"
+                      value="feature_value_id_{{feature_value.id}}"
+                    />
+                    <label class="truncate" for="{{feature_value.id}}"
+                      >{{feature_value.value}}</label
+                    >
+                  </div>
+                  {% endfor %}
+                </div>
+                <!-- <button class="tertiary-btn production__filters-show-more-btn">
+                  Показати більше
+                </button> -->
+              </div>
+            </div>
+            {% endif %} {% endfor %}
+          </div>
+          <button class="primary-btn production__filters-apply-btn">
+            Застосувати фільтри
+          </button>
+        </div>
+
+        <div class="production__center">
+          <div class="production__items">
+            {% for item in paginated_data.page %}
+            <div
+              class="product"
+              data-product-id="{{item.id}}"
+              data-item_amount="{{item.amount}}"
+            >
+              <div class="product__top">
+                <button class="product__favorite-btn">
+                  <img class="heart" src="/static/source/img/heart.png" />
+                </button>
+                <a href="{% url 'item' item.slug %}">
+                  {% if item.image %}
+                  <img
+                    class="product__img"
+                    src="{{item.image.url}}"
+                    alt="product"
+                  />
+                  {% endif %}
+                </a>
+              </div>
+              <div class="product__bottom">
+                <div class="product__info">
+                  <a href="{% url 'item' item.slug %}">
+                    <h4 class="title product__title">{{item.title}}</h4>
+                  </a>
+                  <div class="product__price">
+                    {% if item.price and item.price != item.get_discount_price %}
+                    <span class="product__price-current"
+                      >{{item.get_discount_price}}  ГРН</span
+                    >
+                    <span class="product__price-old"
+                      >{{item.price}} ГРН/шт.</span
+                    >
+                    {% else %}
+                    <span class="product__price-current"
+                      >{{item.price}} ГРН</span
+                    >
+                    {% endif %}
+                  </div>
+                  <div class="product__accessibility truncate">
+                    {% if item.in_stock.availability is True %}
+                    <div class="product__availability">В наявності</div>
+                    {% else %}
+                    <div class="product__availability--missing">
+                      Немає в наявності
+                    </div>
+                    {% endif %}
+                    <span class="product__type-trade">Оптом і в роздріб</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div class="pagination production__pagination">
+            <!-- додати disabled class якщо ми знаходимося на першій (1) сторінці -->
+
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">
+              <button class="pagination__item pagination__prev-btn">
+                <!-- <button class="pagination__item pagination__prev-btn disabled"> -->
+                <svg
+                  width="7"
+                  height="10"
+                  viewBox="0 0 7 10"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    class="disabled"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M5.49689 9.47571C5.38459 9.47571 5.27112 9.43828 5.17637 9.36341L0.218989 5.37575C0.0985051 5.27866 0.0283203 5.13244 0.0283203 4.97686C0.0283203 4.82246 0.0985051 4.67507 0.218989 4.57915L5.15532 0.612538C5.37523 0.435906 5.69691 0.470999 5.87354 0.690911C6.05018 0.910824 6.01508 1.2325 5.79517 1.40914L1.35481 4.97686L5.8174 8.56681C6.03731 8.74345 6.0724 9.06513 5.89577 9.28504C5.794 9.4102 5.64661 9.47571 5.49689 9.47571Z"
+                    fill="#091E42"
+                  />
+                </svg>
+              </button>
+            </a>
+            {% endif %} {% for n in page_obj.paginator.page_range %} {% if page_obj.number == n %}
+            <ul class="pagination__numbers">
+              <a href="?page={{ n }}">
+                <li class="pagination__item active">{{ n }}</li>
+              </a>
+              <!-- активний елемент містить клас active -->
+              {% elif n > page_obj.number|add:"-3" and n < page_obj.number|add:"3" %}
+              <a href="?page={{ n }}">
+                <li class="pagination__item">{{ n }}</li>
+              </a>
+            </ul>
+            {% endif %} {% endfor %} {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">
+              <button class="pagination__item pagination__next-btn">
+                <!-- додати disabled class якщо ми знаходимося на останній сторінці -->
+                <svg
+                  width="6"
+                  height="10"
+                  viewBox="0 0 6 10"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M0.511415 9.47571C0.623711 9.47571 0.737176 9.43828 0.831926 9.36341L5.78931 5.37575C5.9098 5.27866 5.97998 5.13244 5.97998 4.97686C5.97998 4.82246 5.9098 4.67507 5.78931 4.57915L0.852982 0.612538C0.633069 0.435906 0.311389 0.470999 0.134757 0.690911C-0.0418749 0.910824 -0.00678253 1.2325 0.21313 1.40914L4.65349 4.97686L0.190905 8.56681C-0.0290074 8.74345 -0.0640998 9.06513 0.112532 9.28504C0.2143 9.4102 0.361688 9.47571 0.511415 9.47571Z"
+                    fill="#091E42"
+                  />
+                </svg>
+              </button>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  {% endblock content %}
+</body>
+{% block scripts %}
+<script src="/static/source/pages/production/index.js"></script>
+{% endblock scripts %}

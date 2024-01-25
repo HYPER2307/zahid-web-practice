@@ -1,0 +1,141 @@
+.footer {
+  background-color: #6b778c;
+  color: #fff;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+
+  a {
+    color: #fff;
+    font-weight: 400;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__container {
+  }
+
+  &__logo {
+    padding: 24px 0;
+
+    img {
+      width: 118px;
+      height: 33px;
+    }
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+
+    &-link {
+    }
+
+    &-center {
+      display: flex;
+    }
+  }
+
+  &__address {
+    max-width: 220px;
+    width: 100%;
+    padding-right: 56px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+
+    &-top {
+      img {
+      }
+    }
+
+    &-bottom {
+      margin-top: 16px;
+    }
+  }
+
+  &__contacts {
+    max-width: 220px;
+    width: 100%;
+    padding: 0 56px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    &-numbers {
+    }
+
+    &-block {
+    }
+
+    &-name {
+      font-weight: 400;
+    }
+
+    &-email {
+      margin-top: 16px;
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    padding-left: 56px;
+    a + a {
+      margin-top: 16px;
+    }
+  }
+
+  &__bottom {
+    margin-top: 40px;
+    padding: 24px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  @media (max-width: 824px) {
+    &__logo {
+      padding: 16px 0 24px;
+    }
+
+    &__info {
+      flex-direction: column;
+      align-items: flex-start;
+
+      &-center {
+        width: 100%;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    &__address {
+      padding: 0 0 24px;
+      border-right: none;
+
+      &-bottom {
+        margin-top: 24px;
+        padding: 24px 0 16px;
+      }
+    }
+
+    &__contacts {
+      padding: 0 56px 0 0;
+
+      &-name {
+        font-weight: 600;
+      }
+    }
+
+    &__links {
+      padding-left: 24px;
+    }
+  }
+
+  @media (max-width: 424px) {
+    &__contacts {
+      padding: 0 10px 0 0;
+
+      .footer__contacts-email a {
+        word-break: break-all;
+      }
+    }
+  }
+}

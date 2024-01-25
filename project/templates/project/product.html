@@ -1,0 +1,237 @@
+{% extends 'project/base.html' %} {% load sw_content sw_catalog %} {% block styles %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+<title>product</title>
+<link rel="stylesheet" href="/static/source/lib/uikit-3.14.1/css/uikit.css" />
+<link rel="stylesheet" href="/static/source/pages/product/index.css" />
+{% endblock styles %} {% block content %}
+
+<body>
+  <div class="container">
+    <div class="product_main">
+      <div class="product_main__top">
+        <div class="product_main__slider">
+          <div class="product_main-swiper swiper-container">
+            <div class="swiper-wrapper" uk-lightbox="animation: scale">
+              {% for image in item.images.all %}
+              {% if image.image %}
+              <a
+                class="swiper-slide product_main-slide uk-inline"
+                href="{{image.image.url}}"
+                data-caption="Caption 1"
+              >
+                <img src="{{image.image.url}}" alt="product slide" />
+              </a>
+              {% endif %}
+              {% empty %}
+              <div class="swiper-slide product_main-slide">
+                <img
+                  src="{{item.image.url}}"
+                  alt="product slide"
+                />
+              </div>
+              <div class="swiper-slide product_main-slide">
+                <img
+                  src="{{item.image.url}}"
+                  alt="product slide"
+                />
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="product_main-swiper-mini swiper-container">
+            <div class="swiper-wrapper">
+              {% for image in item.images.all %}
+              {% if image.image %}
+              <div class="swiper-slide product_main-slide">
+                <img
+                  src="{{image.image.url}}"
+                  alt="product slide"
+                />
+              </div>
+              <div class="swiper-slide product_main-slide">
+                <img
+                  src="{{item.image.url}}"
+                  alt="product slide"
+                />
+              </div>
+              {% endif %}
+              {% empty %}
+              <div class="swiper-slide product_main-slide">
+                <img
+                  src="{{item.image.url}}"
+                  alt="product slide"
+                />
+              </div>
+              <div class="swiper-slide product_main-slide">
+                <img
+                  src="{{item.image.url}}"
+                  alt="product slide"
+                />
+              </div>
+              {% endfor %}
+            </div>
+            <button
+              class="product_main-swiper-mini__prev-btn product_main-swiper-mini__nav-btn"
+            >
+              <img src="/static/source/img/chevron.svg" />
+            </button>
+            <button
+              class="product_main-swiper-mini__next-btn product_main-swiper-mini__nav-btn"
+            >
+              <img src="/static/source/img/chevron.svg" />
+            </button>
+          </div>
+        </div>
+       
+        <div class="product_main__info">
+          
+          {% if item.in_stock.availability %}
+          <div class="product__availability">В наявності</div>
+          {% else %}
+          <div class="product__availability--missing">Немає в наявності</div>
+          {% endif %}
+
+          <h1 class="product_main__title">{{item.title}}</h1>
+          <div class="product__price">
+            {% if item.price and item.price != item.get_discount_price %}
+            <span class="product__price-current">{{item.get_discount_price}} ГРН</span>
+            <span class="product__price-old">{{item.price}} ГРН/шт.</span>
+            {% else %}
+            <span class="product__price-current">{{item.price}} ГРН</span>
+            {% endif %}
+          </div>
+
+          <div class="colors-checkbox checkbox colors-swiper">
+            <div class="swiper-wrapper">
+              {% if colors %}
+              {% for color in colors %}
+              <div class="swiper-slide">
+                <div class="colors-checkbox__item">
+                  <input id="{{color.id}}"
+                    class="radio"
+                    name="color"
+                    type="radio"
+                    value="{{ color.title }}"
+                    style="background-color: {{ color.title }}"
+                    {% if forloop.counter == 1 %}checked{% endif %} /> 
+                    <label>{{ color.color_name }}</label>
+                </div>
+              </div>
+              {% endfor %}
+              {% endif %}
+            </div>
+
+
+
+              <!-- <div class="colors-checkbox__item">
+                <input
+                  class="radio"
+                  name="colors"
+                  type="radio"
+                  value="green"
+                  style="background-color: green;"
+                />
+              </div>
+
+              <div class="colors-checkbox__item">
+                <input
+                  class="radio"
+                  name="colors"
+                  type="radio"
+                  value="blue"
+                  style="background-color: blue;"
+                />
+              </div> -->
+
+            </div>
+
+          <button data-product-id="{{item.id}}" class="primary-btn product__buy-btn"  
+          {% if item.in_stock.availability is True %}
+          
+          {% else %}
+          disabled
+
+          {% endif %}
+          >Купити <span class="product__buy-btn-count" data-item_amount="{{item.amount}}">{{product.quantity}}</span>
+          </button>
+    
+          
+          
+          <div class="product-block border_section">
+            <h3>Доставка</h3>
+            <div>
+              <div class="border_section__block">
+                <div class="delivery__variant">
+                  <img src="/static/source/img/product/inbox.svg" alt="" />
+                  <span>Самовивіз з відділень поштових операторів</span>
+                </div>
+                <div class="info-price">за тарифами перевізника</div>
+              </div>
+              <div class="border_section__block">
+                <div>
+                  <div class="delivery__variant">
+                    <img
+                      src="/static/source/img/product/storefront.svg"
+                      alt=""
+                    />
+                    <span>Доставка кур'єром</span>
+                  </div>
+                  <div class="color_red" style="margin-left: 32px">
+                    Нова пошта
+                  </div>
+                </div>
+                <div class="info-price">за тарифами перевізника</div>
+              </div>
+            </div>
+          </div>
+          <div class="product-block border_section">
+            <h3>Основні характеристики</h3>
+            <div>
+              {% for item_feature in item_features %}
+              <div class="border_section__block character__block">
+                <div class="character__title">{{item_feature.name.name}}</div>
+                <div>{{item_feature.value.value}}</div>
+              </div>
+              {% endfor %}
+            </div>
+            <a href="#character" class="color_red bold_title"
+              >Переглянути всі характеристики</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="product_main__bottom">
+        <div class="product_main_description">
+          {% if item.description %}
+          <h3>Опис</h3>
+          <div class="description__block">{{item.description|safe}}</div>
+          {% endif %}
+        </div>
+        <div class="border_section" id="character">
+          <h3>Характеристики</h3>
+          <div>
+            {% for item_feature in item_features %}
+            <div class="border_section__block character__block">
+              <div class="character__title">{{item_feature.name.name}}</div>
+              <div>{{item_feature.value.value}}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock content %} {% block scripts %}
+<script src="/static/source/lib/uikit-3.14.1/js/uikit.min.js"></script>
+<script src="/static/source/lib/uikit-3.14.1/js/uikit-icons.min.js"></script>
+<script src="/static/source/pages/product/index.js"></script>
+{% endblock scripts %}

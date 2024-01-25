@@ -1,0 +1,388 @@
+{% extends 'project/base.html' %} {% load sw_content %} {% load sw_cart %} {% block styles %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/static/source/pages/basket/index.css" />
+<title>basket</title>
+{% endblock styles %} {% block content %}
+<body>
+  <div class="container basket__container">
+    <div class="products-column basket">
+      <h1 class="basket__title">Кошик</h1>
+      <div class="products-column__head">
+        <div class="products-column__head-left">
+          <p class="products-column__head-product">Товар</p>
+        </div>
+        <div class="products-column__head-center">
+          <div class="products-column__head-price">Ціна</div>
+          <div class="products-column__head-count">Кількість</div>
+        </div>
+        <div class="products-column__head-right">
+          <p class="products-column__head-paid">Разом</p>
+        </div>
+      </div>
+      <div class="products-column__items">
+        {% for cart_item in cart_items %}
+         <div data-cart-item-id="{{cart_item.id}}" data-item_amount="{{cart_item.item.amount}}" class="product-column" >
+          <div class="product-column__left">
+            <div class="product-column__img">
+              <img src="{{cart_item.item.image.url}}" />
+            </div>
+            <div class="product-column__left-info">
+              <h4 class="product-column__title">{{cart_item.item.title}}</h4>
+              <div class="product__color">
+                <p class="product__color-key">Колір:</p>
+                <div class="product__color-value">
+                  <div class="product__color-value-text">{{cart_item.color.color_name}}</div>
+                  <div class="product__color-value-bg" style="background-color: {{ cart_item.color.title}};"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-column__center">
+            <p class="product-column__price">
+              <span>{{cart_item.item.get_discount_price}}</span>ГРН
+            </p>
+
+            <div class="count__block">
+              <input
+                class="count_input"
+                type="number"
+                value="{{cart_item.quantity}}"
+              />
+              <div>
+                <div class="count_plus">‹</div>
+                <div class="count_minus">‹</div>
+              </div>
+            </div>
+          </div>
+          {% get_cart_item_price cart_item cart_item.item.currency ItemPriceType.PRICE_WITH_DISCOUNT as discount %} 
+          <div class="product-column__right">
+              <p class="product-column__paid">
+              <span>{{discount}}</span>ГРН
+            </p>
+
+            <button class="btn_delete">×</button>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="order border_section">
+      <h3>Замовлення</h3>
+      <form action="" class="order_form validation__block">
+
+
+        <div class="field contacts__form-field validation_container">
+          <label for="name" class="contacts__form-label">Ім'я</label>
+          <input
+            id="name"
+            class="contacts__form-input validation_input"
+            type="text"
+            data-type="name"
+            name="name"
+            placeholder="Степан"
+            {% if request.user.is_authenticated %}
+            value="{{request.user.name}}"
+            {% endif %}
+            required
+          />
+        </div>
+
+        <div class="field contacts__form-field validation_container">
+          <label for="surname" class="contacts__form-label">Прізвище</label>
+          <input
+            id="surname"
+            class="contacts__form-input validation_input"
+            type="text"
+            data-type="name"
+            name="surname"
+            placeholder="Степанченко"
+            {% if request.user.is_authenticated %}
+            value="{{request.user.surname}}"
+            {% endif %}
+            required
+          />
+        </div>
+
+        <div class="field contacts__form-field validation_container">
+          <label for="tel">Телефонний номер</label>
+
+          <div class="tel-block">
+            <div class="tel-block__left">
+              <img src="/static/source/img/flag-ua.svg" alt="flag-ua" />
+              <span>+380</span>
+            </div>
+            <input
+              id="tel"
+              class="contacts__form-input validation_input"
+              type="tel"
+              data-type="phone"
+              name="phone"
+              placeholder="97 23 45 711"
+              {% if request.user.is_authenticated %}
+              value="{{request.user.phone}}"
+              {% endif %}
+              required
+            />
+          </div>
+        </div>
+
+
+          <div class="field contacts__form-field validation_container">
+          <label for="email" class="contacts__form-label">E-Mail</label>
+          <input
+            id="email"
+            class="contacts__form-input validation_input"
+            type="email"
+            data-type="email"
+            name="email"
+            placeholder="stepanchenko22@gmail.com"
+            {% if request.user.is_authenticated %}
+            value="{{request.user.email}}"
+            {% endif %}
+            required
+          />
+        </div>
+
+        <div class="field partnership__form-field delivery-field validation_container">
+          <label for="settlement" class="partnership__form-label"
+            >Місто/населений пункт</label
+          >
+
+          <div
+            class="select custom-select partnership__form-select select-settlement"
+          >
+            <div id="settlement" class="custom-select__head">
+              <input
+                id="settlement"
+                name="settlement" 
+                type="text"
+                data-type="comment"
+                required
+              />
+              <img src="/static/source/img/arrow-down-big.svg" />
+            </div>
+            <div class="custom-select__body">
+              <ul class="custom-select__list">
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="field cabinet__profile-form-field delivery-field validation_container">
+          <label for="warehouse" class="cabinet__profile-form-label"
+            >Відділення</label
+          >
+
+          <div
+            class="select custom-select cabinet__profile-form-select select-warehouse"
+          >
+            <div id="warehouse" class="custom-select__head">
+              <input
+                id="warehouse"
+                name="warehouse"
+                data-type="comment"
+                type="text"
+                required
+
+              />
+              <img src="/static/source/img/arrow-down-big.svg" />
+            </div>
+            <div class="custom-select__body">
+              <ul class="custom-select__list">
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="field contacts__form-field delivery-field validation_container">
+          <label for="address" class="contacts__form-label">Адреса</label>
+          <input
+            id="address"
+            class="contacts__form-input"
+            type="text"
+            name="address"
+            placeholder="Адреса"
+            required
+          />
+        </div>
+
+        <div class="field contacts__form-field">
+          <label for="comment" class="contacts__form-label">Коментар</label>
+          <textarea
+            id="comment"
+            class="contacts__form-textarea"
+            name="comments"
+            placeholder="Напишіть ваш коментар"
+            required
+          ></textarea>
+        </div>
+
+        <div class="checkbox">
+          <input id="loyalty" name="loyality_system" type="checkbox" />
+          <label class="truncate" for="loyalty">
+            Я бажаю взяти участь в системі лояльності
+          </label>
+        </div>
+
+        <div class="border_section">
+          <h3>Спосіб доставки</h3>
+          <div class="radio-section">
+            <div class="border_section__block">
+              <label for="self-pickup">
+                <input
+                  type="radio"
+                  id="self-pickup"
+                  value="self-pickup"
+                  name="delivery"
+                  checked
+                />
+                Самовивіз
+              </label>
+
+              <!-- <div>за тарифами перевізника</div> -->
+            </div>
+            <div class="border_section__block">
+              <label for="courier">
+                <input
+                  type="radio"
+                  id="courier"
+                  value="courier"
+                  name="delivery"
+                />
+                Доставка кур'єром
+              </label>
+              <div>за тарифами перевізника</div>
+            </div>
+            <div class="border_section__block">
+              <label for="np">
+                <input
+                  type="radio"
+                  id="np"
+                  value="np"
+                  name="delivery"
+                />
+                Нова Пошта
+              </label>
+              <div>за тарифами перевізника</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border_section">
+          <h3>Спосіб оплати</h3>
+          <div class="radio-section">
+            <div>
+              <label for="partial-prepayment">
+                <input
+                  type="radio"
+                  id="partial-prepayment"
+                  value="partial-prepayment"
+                  name="payment"
+                  checked
+                />
+                Часткова предоплата
+              </label>
+            </div>
+
+                        <div>
+              <label for="cashless-payment-individual">
+                <input
+                  type="radio"
+                  id="cashless-payment-individual"
+                  value="cashless-payment-individual"
+                  name="payment"
+                  
+                />
+                Безготівковий розрахунок для фізичних осіб
+              </label>
+            </div>
+
+                        <div>
+              <label for="cashless-payment-legal-entity">
+                <input
+                  type="radio"
+                  id="cashless-payment-legal-entity"
+                  value="cashless-payment-legal-entity"
+                  name="payment"
+                  
+                />
+                Безготівковий розрахунок для юридичних осіб
+              </label>
+            </div>
+
+
+                            <div class="field contacts__form-field payment-field validation_container">
+          <label for="entity" class="contacts__form-label">Повна назва юридичної особи</label>
+          <input
+            id="entity"
+            class="contacts__form-input"
+            type="text"
+            name="entity"
+            data-type="comment"
+            placeholder="Степан Степанченко Степанович"
+            required
+          />
+        </div>
+
+                    <div class="field contacts__form-field payment-field validation_container">
+          <label for="edrpouCode" class="contacts__form-label">Код ЄДРПОУ</label>
+          <input
+            id="edrpouCode"
+            class="contacts__form-input"
+            type="number"
+            name="edrpouCode"
+            data-type="comment"
+            placeholder="11111111"
+            required
+          />
+        </div>
+
+
+
+
+          </div>
+        </div>
+        {% get_cart_price cart current_currency ItemPriceType.PRICE_WITH_DISCOUNT as total_discount %}
+        <div style="margin-top: 20px">
+          <div class="border_section__block">
+            <div>Разом</div>
+            <div class="order__total-price">
+              <span>{{total_discount}}</span
+              >
+             ГРН
+            </div>
+          </div>
+          <!-- <div class="border_section__block">
+            <div>Доставка</div>
+            <div>00.00грн</div>
+          </div> -->
+          <div class="border_section__block">
+            <div>Підсумок</div>
+            <div class="order__total-cost bold_title color_red">
+              <span>{{total_discount}}</span
+              >ГРН
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="primary-btn contacts__form-send-btn validation_btn"
+        >
+          Оформити замовлення
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
+{% endblock content %} {% block scripts %}
+<script src="/static/source/pages/basket/index.js"></script>
+{% endblock scripts %}

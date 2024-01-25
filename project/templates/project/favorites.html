@@ -1,0 +1,74 @@
+{% extends 'project/base.html' %} {% load sw_content %} {% block styles %}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+<title>Favorites</title>
+<link rel="stylesheet" href="/static/source/pages/favorites/index.css" />
+{% endblock styles %} 
+{% block content %}
+<body>
+  <section class="favorites">
+    <div class="container favorites__container">
+      <h2 class="title favorites__title">Збережені</h2>
+      <div class="favorites__items">
+        {% for favour_item in favour_items %}
+        <div class="product" data-favorite-id="{{favour_item.id}}" data-product-id="{{favour_item.item.id}}">
+          <div class="product__top">
+<button class="product__favorite-btn">
+                                    <img class="heart" src="/static/source/img/red-heart.png">
+                                </button>
+            <a href="{{favour_item.item.get_absolute_url}}">
+              <img
+                class="product__img"
+                src="{{favour_item.item.image.url}}"
+                alt="product"
+              />
+            </a>
+          </div>
+          <div class="product__bottom">
+            <div class="product__info">
+              
+              <a href="{{favour_item.item.get_absolute_url}}"><h4 class="title product__title">
+                {{favour_item.item.title}}
+              </h4></a>
+              <div class="product__price">
+                {% if favour_item.item.price and favour_item.item.price != favour_item.item.get_discount_price %}
+                <span class="product__price-current"
+                  >{{favour_item.item.get_discount_price}} ГРН</span
+                >
+                <span class="product__price-old">{{favour_item.item.price}}ГРН/шт.</span>
+                {% else %}
+                <span class="product__price-current">{{favour_item.item.price}} ГРН</span>
+                {% endif %}
+              </div>
+              <div class="product__accessibility truncate">
+                {% if favour_item.in_stock.availability is True %}
+                  <div class="product__availability">В наявності</div>
+                  {% else %}
+                  <div class="product__availability--missing">
+                    Немає в наявності
+                  </div>
+                  {% endif %}
+                <span class="product__type-trade">Оптом і в роздріб</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    
+      </div>
+    </div>
+
+  </section>
+
+  
+</body>
+{% endblock content %}
+{% block scripts %}
+<script src="/static/source/pages/favorites/index.js"></script>
+{% endblock scripts %}

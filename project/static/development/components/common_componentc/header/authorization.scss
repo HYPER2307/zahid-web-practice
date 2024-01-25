@@ -1,0 +1,121 @@
+.authorization {
+  overflow: hidden;
+
+  &__form-fields {
+    max-height: calc(100vh - 120px);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &.modal-authorization {
+    @media (max-width: 900px) {
+      width: 70%;
+      padding: 20px;
+    }
+  }
+
+  &__form-btns {
+    display: flex;
+    align-items: center;
+
+    button + button {
+      margin-left: 16px;
+    }
+
+    @media (max-width: 524px) {
+      button + button {
+        margin-left: 10px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      flex-direction: column;
+
+      button + button {
+        margin-left: 0;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .field {
+    width: 100%;
+
+    input {
+      width: calc(100% - 26px);
+    }
+  }
+
+  .authorization-btn {
+    margin-top: 28px;
+  }
+  .authorization-btn + .authorization-btn {
+    @media (max-width: 420px) {
+      margin-top: 12px;
+    }
+  }
+
+  .tel-block {
+    &__left {
+      padding: 6px 9px;
+    }
+  }
+
+  .registration {
+    &__form {
+      position: absolute;
+      top: 0;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.5s;
+
+      &-login-btn {
+        padding: 12px 55px;
+      }
+
+      &.active {
+        position: static;
+        visibility: visible;
+        opacity: 1;
+      }
+
+      @media (max-width: 524px) {
+        &-reg-btn {
+          padding: 6px;
+        }
+
+        &-login-btn {
+          padding: 5px 33px;
+        }
+      }
+    }
+  }
+
+  .sign-in {
+    &__form {
+      &-login-btn {
+        padding: 12px 57px;
+      }
+
+      &.disabled {
+        position: absolute;
+        top: 0;
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      @media (max-width: 524px) {
+        &-login-btn {
+          padding: 6px 33px;
+        }
+
+        &-reg-btn {
+          padding: 5px 6px;
+        }
+      }
+    }
+  }
+}
