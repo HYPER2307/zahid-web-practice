@@ -19,7 +19,7 @@ import {
 const BASKET_NOTIFICATION_HTML = '<p class="basket__notification">Додайте хоча б 1 товар в корзину!</p>';
 
 const CASHLESS_PAYMENT_LEGAL_ENTITY = 'cashless-payment-legal-entity';
-const CASHLESS_PAYMENT_INDIDVIDUAL = 'cashless-payment-individual';
+const CASHLESS_PAYMENT_INDIVIDUAL = 'cashless-payment-individual';
 const PARTIAL_PREPAYMENT = 'partial-prepayment';
 
 const NP = 'np';
@@ -44,16 +44,16 @@ const minusItem = target => {
 
 const setItemTotalSum = (target, newValue) => {
   const wrap = target.closest('.product-column');
-  const totalSumElem = wrap.querySelector('.product-column__paid').querySelector('span');
+  const totalSumElem = wrap.querySelector('.product-column__paid span');
 
-  totalSumElem.innerText = !Number.isInteger(newValue) ? newValue : `${newValue},0`;
+  totalSumElem.innerText = !Number.isInteger(newValue) ? newValue : newValue.toFixed(1);
 };
 
 const productColumnHead = document.querySelector('.products-column__head');
 const productItems = document.querySelectorAll('.product-column');
 const productsList = document.querySelector('.products-column__items');
 
-const getInputWrapper = (input) => {
+const getInputWrapper = input => {
   const inputWrapper = input.closest('.field');
 
   return inputWrapper;
@@ -84,9 +84,9 @@ const edrpouCodeInput = order.querySelector('input#edrpouCode');
 const edrpouCodeWrapper = getInputWrapper(edrpouCodeInput);
 
 const settlementSelectList = settlementWrapper.querySelector('.custom-select__list');
-const warehousSelectList = warehouseWrapper.querySelector('.custom-select__list');
+const warehouseSelectList = warehouseWrapper.querySelector('.custom-select__list');
 
-const formButton = order.querySelector('.contacts__form-send-btn');
+const submitButton = order.querySelector('.contacts__form-send-btn');
 
 let deliveryMethod = SELF_PICKUP;
 let paymentMethod = PARTIAL_PREPAYMENT;
@@ -102,8 +102,8 @@ const resetSelectedDeliveryMethod = () => {
   settlementInput.classList.remove('validation_input');
 }
 
-function setSelectedDeliveryMethod(value) {
-  switch (value) {
+const setSelectedDeliveryMethod = currentDeliveryMethod => {
+  switch (currentDeliveryMethod) {
     case NP:
       resetSelectedDeliveryMethod();
 
@@ -113,7 +113,7 @@ function setSelectedDeliveryMethod(value) {
       settlementWrapper.classList.add('active');
       settlementInput.classList.add('validation_input');
 
-      deliveryMethod = NP;
+      deliveryMethod = currentDeliveryMethod;
 
       break;
 
@@ -123,14 +123,14 @@ function setSelectedDeliveryMethod(value) {
       addressWrapper.classList.add('active');
       addressInput.classList.add('validation_input');
 
-      deliveryMethod = COURIER;
+      deliveryMethod = currentDeliveryMethod;
 
       break;
 
     case SELF_PICKUP:
       resetSelectedDeliveryMethod();
 
-      deliveryMethod = SELF_PICKUP;
+      deliveryMethod = currentDeliveryMethod;
 
       break;
   }
@@ -143,43 +143,43 @@ const resetSelectedPaymentMethod = () => {
   edrpouCodeInput.classList.remove('validation_input');
 }
 
-const setSelectedPaymentMathod = (paymentMethod) => {
-  switch (paymentMethod) {
+const setSelectedPaymentMethod = currentPaymentMethod => {
+  switch (currentPaymentMethod) {
     case CASHLESS_PAYMENT_LEGAL_ENTITY:
       entityWrapper.classList.add('active');
       entityInput.classList.add('validation_input');
       edrpouCodeWrapper.classList.add('active');
       edrpouCodeInput.classList.add('validation_input');
 
-      paymentMethod = CASHLESS_PAYMENT_LEGAL_ENTITY;
+      paymentMethod = currentPaymentMethod;
 
       break;
     
-    case CASHLESS_PAYMENT_INDIDVIDUAL: 
+    case CASHLESS_PAYMENT_INDIVIDUAL: 
       resetSelectedPaymentMethod();
 
-      paymentMethod = CASHLESS_PAYMENT_INDIDVIDUAL;
+      paymentMethod = currentPaymentMethod;
 
       break;
     
     case PARTIAL_PREPAYMENT:
       resetSelectedPaymentMethod();
 
-      paymentMethod = PARTIAL_PREPAYMENT;
+      paymentMethod = currentPaymentMethod;
 
       break;
   }
 };
 
-const arrayToHTMLItemsList = (array) => {
+const renderHTMLList = (array) => {
   const preparedList = array.map(({ id, title }) => {
     return `<li id="${id}" class="custom-select__list-item">${title}</li>`
   });
 
-  return preparedList;
+  return preparedList.join('');
 };
 
-function cleanWarehouseValue(inputValue) {
+function resetWarehouseExtraSymbols(inputValue) {
   const cleanedValue = inputValue.toLowerCase()
       .replace('до', '')
       .replace('вул', '')
@@ -193,10 +193,16 @@ if (!productItems.length) {
 
   productsList.innerHTML = BASKET_NOTIFICATION_HTML;
 
-  formButton.disabled = true;
+  submitButton.disabled = true;
 }
 
 document.addEventListener("click", async ({ target }) => {
+  checkFormErrors(order, submitButton);
+
+  if (submitButton.disabled) {
+    return;
+  }
+
   const deleteButton = target.closest(".btn_delete");
 
   const countPlus = target.closest('.count_plus');
@@ -205,13 +211,13 @@ document.addEventListener("click", async ({ target }) => {
   const cartItem = target.closest(".product-column");
   const cartItemId = cartItem?.dataset.cartItemId;
 
-  const totalAmout = cartItem?.dataset.item_amount;
+  const totalAmount = cartItem?.dataset.item_amount;
 
   const settlementId = settlementInput.dataset.listItemId;
   const listItem = target.closest('.custom-select__list-item');
   const settlementSelectItem = listItem?.closest('.select-settlement');
 
-  const isFormButton = target.closest('.contacts__form-send-btn');
+  const isSubmitButton = target.closest('.contacts__form-send-btn');
 
   if (deleteButton) {
     const data = await removeCartItem(cartItemId);
@@ -228,7 +234,7 @@ document.addEventListener("click", async ({ target }) => {
   if (countPlus) {
     const value = plusItem(target)
 
-    if (value <= totalAmout) {
+    if (value <= totalAmount) {
       const data = await updateCartItem(cartItemId, value);
       const { cart_item_total_price } = data;
 
@@ -249,10 +255,10 @@ document.addEventListener("click", async ({ target }) => {
   if (settlementSelectItem) {
     const data = await getWarehouses(settlementId);
 
-    warehousSelectList.innerHTML = arrayToHTMLItemsList(data).join('');
+    warehouseSelectList.innerHTML = renderHTMLList(data).join('');
   }
 
-  if (isFormButton) {
+  if (isSubmitButton) {
     const formState = {
       name: nameInput.value,
       surname: surnameInput.value,
@@ -277,25 +283,27 @@ document.addEventListener('input', async ({ target }) => {
   const cartItem = target.closest('.product-column');
   const cartItemId = cartItem?.dataset.cartItemId;
   const inputBasket = target.closest('.count_input');
-  const totalAmout = cartItem?.dataset.item_amount;
+  const totalAmount = cartItem?.dataset.item_amount;
 
   const isSettlementInput = target.closest('input#settlement');
   const isWarehouseInput = target.closest('input#warehouse');
+  const isNameInput = target.closest('input#name');
+  const isSurnameInput = target.closest('input#surname');
 
   if (inputBasket) {
     const value = input_basket(inputBasket);
 
-    if (value >= totalAmout) {
-      const data = await updateCartItem(cartItemId, totalAmout);
+    if (value >= totalAmount) {
+      const data = await updateCartItem(cartItemId, totalAmount);
 
       updateCartLabel(data);
 
-      inputBasket.value = totalAmout;
+      inputBasket.value = totalAmount;
 
       setItemTotalSum(target, data.cart_item_total_price);
     }
 
-    if (value <= totalAmout) {
+    if (value <= totalAmount) {
       const data = await updateCartItem(cartItemId, value);
 
       updateCartLabel(data);
@@ -307,7 +315,15 @@ document.addEventListener('input', async ({ target }) => {
 
   if (target.type === 'radio') {
     setSelectedDeliveryMethod(target.value);
-    setSelectedPaymentMathod(target.value);
+    setSelectedPaymentMethod(target.value);
+  }
+
+  if (isNameInput) {
+    nameInput.value = nameInput.value.replace(/[^a-zA-Zа-яА-яі ]/g, '').trimStart();
+  }
+
+  if (isSurnameInput) {
+    surnameInput.value = surnameInput.value.replace(/[^a-zA-Zа-яА-яі ]/g, '').trimStart();
   }
 
   if (isSettlementInput) {
@@ -315,7 +331,7 @@ document.addEventListener('input', async ({ target }) => {
 
     const { results } = await getSettlements(settlementValue);
 
-    settlementSelectList.innerHTML = arrayToHTMLItemsList(results).join('');
+    settlementSelectList.innerHTML = renderHTMLList(results);
   }
 
   if (isWarehouseInput) {
@@ -324,12 +340,12 @@ document.addEventListener('input', async ({ target }) => {
     if (settlementId) {
       const data = await getWarehouses(settlementId);
 
-      const warehouseValue = cleanWarehouseValue(warehouseInput.value);
+      const warehouseValue = resetWarehouseExtraSymbols(warehouseInput.value);
   
-      const preparedWarehouslist = data
-        .filter(({ title }) => cleanWarehouseValue(title).includes(warehouseValue));
+      const filteredWarehouseList = data
+        .filter(({ title }) => resetWarehouseExtraSymbols(title).includes(warehouseValue));
   
-      warehousSelectList.innerHTML = arrayToHTMLItemsList(preparedWarehouslist).join('');
+      warehouseSelectList.innerHTML = renderHTMLList(filteredWarehouseList);
     }
   }
 });
